@@ -1,0 +1,36 @@
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const compress = require('compression');
+const cors = require('cors');
+const helmet = require('helmet');
+
+const userRoutes = require('./routes/user.routes.js');
+const authRoutes = require('./routes/auth.routes.js');
+const contactRoutes = require('./routes/contact.routes.js');
+const projectRoutes = require('./routes/project.routes.js');
+const qualificationRoutes = require('./routes/qualification.routes.js');
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/', userRoutes);
+app.use('/', authRoutes);
+app.use('/', contactRoutes);
+app.use('/', projectRoutes);
+app.use('/', qualificationRoutes);
+app.use(cookieParser());
+app.use(compress());
+app.use(helmet());
+app.use(cors());
+
+// ?What is this?
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({ error: err.name + ': ' + err.message });
+  } else if (err) {
+    res.status(400).json({ error: err.name + ': ' + err.message });
+    console.log(err);
+  }
+});
+
+module.exports = app;

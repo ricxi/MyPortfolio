@@ -1,0 +1,37 @@
+const mongoose = require('mongoose');
+
+const ProjectSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: 'Project title is required',
+  },
+
+  firstname: {
+    type: String,
+    trim: true,
+    required: 'First name is required',
+  },
+
+  lastname: {
+    type: String,
+    trim: true,
+    required: 'Last name is required',
+  },
+
+  email: {
+    type: String,
+    trim: true,
+    match: [/.+\@.+\..+/, 'Please provide a valid email address'],
+    required: 'Email is required',
+  },
+
+  completion: {
+    type: Date,
+  },
+
+  description: {
+    type: String,
+  },
+});
+
+module.exports = mongoose.model('Project', ProjectSchema);
