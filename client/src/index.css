@@ -1,68 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Radio+Canada:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box; /* stops margin and padding from affecting actual width and height of nested element*/
+  margin: 0;
+  padding: 0;
+  color: #000000;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --primary-color: #000000;
+  --secondary-color: #FFFFFF;
+  --active-color: red;
 }
 
 body {
-  margin: 0;
+  font-family: 'Radio Canada', sans-serif;
+  background-color: var(--secondary-color);
+  /* color: var(--primary-color); */
+  line-height: 1.6;
+}
+
+/* Styles message box on home page for message to user when they submit their information on the contact form */
+.modal-msg {
+  font-size: 26px;
+  background-color: var(--active-color);
+  border: 1px solid var(--active-color);
+}
+
+nav {
+  background-color: var(--primary-color);
+  padding: 8px 0;
+}
+
+nav .container {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Styles for div that surrounds the menu items (NavLink components) */
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+/* Styles for NavLink component */
+.nav-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  border: 1px solid var(--secondary-color);
+  padding: 3px 8px;
+  margin: 2px;
+  transition: ease 0.31s;
+}
+
+.nav-link:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+/* Sets Active Link */
+.link-active {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.nav-link-home {
+  color: var(--secondary-color);
+  text-decoration: none;
+  border: 1px solid var(--secondary-color);
+  background: var(--primary-color);
+  padding: 8px;
+  transition: ease 0.39s;
+}
+
+.nav-link-home:hover {
+  background-color: var(--active-color);
+  color: var(--primary-color);
+}
+
+
+.logo {
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  border-radius: 50%;
+  padding: 3px 8px;
+  margin: 2px;
+}
+
+/* Styles for Card component */
+.panel {
+  border: 1px solid #ACACAC;
+  box-shadow: 0 4px 15px 0 #D3D3D3;
+  color: var(--primary-color);
+  padding: 7px 20px 20px;
+  margin: 7px 0;
+}
+
+.panel:hover {
+  box-shadow: 0 4px 29px 0 #D3D3D3;
+}
+
+.contact-form input {
+  display: block;
+  margin: 5px;
+  padding: 5px;
+}
+
+.contact-form textarea {
+  margin: 5px;
+  padding: 5px;
+}
+
+/* Button styles for submit button on Contact Information page */
+.form-button {
+  display: block;
+  margin: 2px 5px;
+  padding: 8px 11px;
+  font-size: 19px;
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  transition: ease 0.31s;
+}
+
+.form-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+article {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+section {
+  border-top: 1px solid #000000;
+  margin-bottom: 8px;
+}
+
+.btm-border {
+  border-bottom: 1px solid var(--primary-color);
+  padding-bottom: 10px;
+  margin-bottom: 9px;
+}
+
+ul {
+  padding-left: 30px;
+}
+
+.grid-wrapper {
+  display: grid;
+  /* justify-content: start; */
+  justify-items: stretch;
+  grid-template-columns: 200px 1fr;
+}
+
+.grid-wrapper h2 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.grid-wrapper p {
+  grid-column-start:2;
+  grid-column-end: 3;
+  padding: 0px 0px 7px 7px;
+}
+
+.grid-wrapper img {
+  grid-column-start:1;
+  grid-column-end: 2;
+  border: 1px solid var(--primary-color);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
