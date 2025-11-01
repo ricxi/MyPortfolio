@@ -6,7 +6,6 @@ const ContactModel = require('../models/contact.model.js');
 const { initializeDB, stopDB, cleanupDB } = require('./setup.js');
 const { constant } = require('lodash');
 
-// Create a new contact
 // TODO: error message and test if contact already exists
 describe('POST /api/contacts (create a new contact)', () => {
   beforeAll(async () => {

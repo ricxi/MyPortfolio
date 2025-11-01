@@ -7,7 +7,7 @@ const create = async (req, res) => {
   try {
     const result = await contact.save();
     if (!result)
-      res.status(400).json({
+      return res.status(400).json({
         error: 'Problem creating contact.',
       });
 

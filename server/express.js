@@ -23,14 +23,21 @@ app.use(compress());
 app.use(helmet());
 app.use(cors());
 
-// ?What is this?
 app.use((err, req, res, next) => {
-  if (err.name === 'UnauthorizedError') {
-    res.status(401).json({ error: err.name + ': ' + err.message });
-  } else if (err) {
-    res.status(400).json({ error: err.name + ': ' + err.message });
+  const statusCode = res.statusCode < 400 ? 500 : res.statusCode;
+
+  if (
+    err &&
+    (err.name === 'AuthenticationError' ||
+      err.name === 'UnauthorizedError' ||
+      err.name === 'JsonWebTokenError')
+  ) {
     console.log(err);
+    return res.status(statusCode).json({ error: err.message });
   }
+
+  console.log(err);
+  return res.status(statusCode).json({ error: err.name + ': ' + err.message });
 });
 
 module.exports = app;

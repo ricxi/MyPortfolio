@@ -1,5 +1,15 @@
-function handleError(req, res) {
-  // Your code to handle the error
+class UnauthorizedError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'UnauthorizedError';
+  }
+}
+
+class AuthenticationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'AuthenticationError';
+  }
 }
 
 function getErrorMessage(err) {
@@ -13,6 +23,7 @@ function getErrorMessage(err) {
 }
 
 module.exports = {
-  handleError,
   getErrorMessage,
+  AuthenticationError,
+  UnauthorizedError,
 };

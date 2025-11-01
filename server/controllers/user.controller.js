@@ -1,12 +1,17 @@
 const User = require('../models/user.model.js');
-const extend = require('lodash/extend.js');
+// const extend = require('lodash/extend.js');
 const errorHandler = require('./error.controller.js');
 
 const create = async (req, res) => {
   const user = new User(req.body);
   try {
-    await user.save();
-    return res.status(200).json({
+    const result = await user.save();
+    if (!result)
+      return res.status(400).json({
+        error: 'Problem creating user.',
+      });
+
+    return res.status(201).json({
       message: 'Successfully signed up!',
     });
   } catch (err) {
@@ -18,8 +23,8 @@ const create = async (req, res) => {
 
 const list = async (req, res) => {
   try {
-    let users = await User.find().select('name email updated created');
-    res.json(users);
+    const users = await User.find().select('_id name email updated created');
+    return res.json(users);
   } catch (err) {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
@@ -27,15 +32,17 @@ const list = async (req, res) => {
   }
 };
 
-const userByID = async (req, res, next, id) => {
+const userByID = async (req, res) => {
   try {
-    let user = await User.findById(id);
+    const user = await User.findById(req.params.id).select(
+      '_id name email created updated'
+    );
     if (!user)
-      return res.status(400).json({
-        error: 'User not found',
+      return res.status(404).json({
+        error: 'User not found.',
       });
-    req.profile = user;
-    next();
+
+    return res.status(200).json(user);
   } catch (err) {
     return res.status(400).json({
       error: 'Could not retrieve user',
@@ -43,21 +50,17 @@ const userByID = async (req, res, next, id) => {
   }
 };
 
-const read = (req, res) => {
-  req.profile.hashed_password = undefined;
-  req.profile.salt = undefined;
-  return res.json(req.profile);
-};
-
 const update = async (req, res) => {
   try {
-    let user = req.profile;
-    user = extend(user, req.body);
-    user.updated = Date.now();
-    await user.save();
-    user.hashed_password = undefined;
-    user.salt = undefined;
-    res.json(user);
+    const user = req.body;
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, user, {
+      new: true,
+      runValidators: true,
+    }).select('_id name email created updated');
+
+    updatedUser.updated = Date.now();
+    await updatedUser.save();
+    return res.json(updatedUser);
   } catch (err) {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
@@ -65,13 +68,16 @@ const update = async (req, res) => {
   }
 };
 
-const remove = async (req, res) => {
+const removeById = async (req, res) => {
   try {
-    let user = req.profile;
-    let deletedUser = await user.deleteOne();
-    deletedUser.hashed_password = undefined;
-    deletedUser.salt = undefined;
-    res.json(deletedUser);
+    const deletedUser = await User.findByIdAndDelete(req.params.id).select(
+      '_id name email'
+    );
+    if (!deletedUser) return res.status(404).json({ error: 'User not found.' });
+    return res.json({
+      ...deletedUser.toJSON(),
+      deleted: true,
+    });
   } catch (err) {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
@@ -79,4 +85,23 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { create, userByID, read, list, remove, update };
+const removeAll = async (req, res) => {
+  try {
+    const result = await User.deleteMany({});
+    if (!result) return res.json({ error: 'problem deleting users' });
+    return res.json({ message: 'successfully deleted all users' });
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+module.exports = {
+  create,
+  userByID,
+  list,
+  removeById,
+  removeAll,
+  update,
+};
