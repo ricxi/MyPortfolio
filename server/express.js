@@ -25,14 +25,14 @@ app.use(cors());
 
 app.use((err, req, res, next) => {
   const statusCode = res.statusCode < 400 ? 500 : res.statusCode;
-
   if (
     err &&
     (err.name === 'AuthenticationError' ||
       err.name === 'UnauthorizedError' ||
-      err.name === 'JsonWebTokenError')
+      err.name === 'JsonWebTokenError' ||
+      err.name === 'ValidationError')
   ) {
-    console.log(err);
+    console.err(err);
     return res.status(statusCode).json({ error: err.message });
   }
 

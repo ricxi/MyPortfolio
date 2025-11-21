@@ -1,5 +1,4 @@
 const User = require('../models/user.model.js');
-// const extend = require('lodash/extend.js');
 const errorHandler = require('./error.controller.js');
 
 const create = async (req, res) => {

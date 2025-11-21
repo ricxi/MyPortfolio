@@ -13,12 +13,6 @@ class AuthenticationError extends Error {
 }
 
 function getErrorMessage(err) {
-  if (err.name === 'ValidationError') {
-    return {
-      error: 'invalid or missing fields',
-    };
-  }
-
   return err.message;
 }
 

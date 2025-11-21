@@ -1,2 +1,4 @@
 # MyPortfolio
-Assignment 2 for COMP229 - Web Application Development
+Assignment 3 - Connecting Frontend and Backend.
+   
+COMP229 - Web Application Development 
