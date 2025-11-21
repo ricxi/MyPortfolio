@@ -1,6 +1,6 @@
-# Assignment 1 (COMP229)
+# Client from Assignment 1 (COMP229)
 Portfolio Site  
-Assignment 1 for COMP229 - Web Application Development
+COMP229 - Web Application Development
 
 ## Deployed Site Link
 Here is the [link](https://a1-comp229.vercel.app/) of the deployed version of my project.
