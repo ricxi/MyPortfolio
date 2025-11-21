@@ -12,6 +12,13 @@ class AuthenticationError extends Error {
   }
 }
 
+class MissingFieldsError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'MissingFieldsError';
+  }
+}
+
 function getErrorMessage(err) {
   return err.message;
 }

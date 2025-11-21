@@ -1,39 +1,35 @@
 const express = require('express');
 const userCtrl = require('../controllers/user.controller.js');
-const authCtrl = require('../controllers/auth.controller.js');
+const auth = require('../middleware/auth.middleware.js');
+const { requireAdmin } = require('../middleware/admin.middleware.js');
 
 const router = express.Router();
 
 router.post('/api/users', userCtrl.create);
 
-router.get(
-  '/api/users',
-  authCtrl.requireSignin,
-  // authCtrl.hasAuthorization,
-  userCtrl.list
-);
+router.get('/api/users', auth.requireSignin, userCtrl.list);
 
-router.get(
-  '/api/users/:id',
-  authCtrl.requireSignin,
-  // authCtrl.hasAuthorization,
-  userCtrl.userByID
-);
+router.get('/api/users/:id', auth.requireSignin, userCtrl.userByID);
 
 router.put(
   '/api/users/:id',
-  authCtrl.requireSignin,
-  authCtrl.hasAuthorization,
-  userCtrl.update
+  auth.requireSignin,
+  auth.hasAuthorization,
+  userCtrl.update,
 );
 
 router.delete(
   '/api/users/:id',
-  authCtrl.requireSignin,
-  authCtrl.hasAuthorization,
-  userCtrl.removeById
+  auth.requireSignin,
+  auth.hasAuthorization,
+  userCtrl.removeById,
 );
 
-router.delete('/api/users', authCtrl.requireSignin, userCtrl.removeAll);
+router.delete(
+  '/api/users',
+  auth.requireSignin,
+  requireAdmin,
+  userCtrl.removeAll,
+);
 
 module.exports = router;

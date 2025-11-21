@@ -1,14 +1,12 @@
 const jwt = require('jsonwebtoken');
-const asyncHandler = require('express-async-handler');
 const User = require('../models/user.model.js');
 const config = require('../../config/config.js');
-const {
-  AuthenticationError,
-  UnauthorizedError,
-} = require('./error.controller.js');
 
 const signin = async (req, res) => {
   try {
+    if (!req.body.email) throw new Error('Missing email field.');
+    if (!req.body.password) throw new Error('Missing password field.');
+
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(401).json({ error: 'User not found.' });
     if (!user.authenticate(req.body.password)) {
@@ -26,7 +24,7 @@ const signin = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(401).json({ error: 'Could not sign in' });
+    return res.status(401).json({ error: err.message });
   }
 };
 
@@ -37,44 +35,4 @@ const signout = (req, res) => {
   });
 };
 
-const requireSignin = (req, res, next) => {
-  const authHeader = req.headers.authorization || null;
-
-  if (!authHeader || !authHeader.startsWith('Bearer')) {
-    res.status(401);
-    throw new AuthenticationError('Failed to authenticate user');
-  }
-
-  const [, bearerToken] = req.headers.authorization.split(' ');
-  try {
-    jwt.verify(bearerToken, config.jwtSecret);
-    next();
-  } catch (err) {
-    res.status(401);
-    throw err;
-  }
-};
-
-const hasAuthorization = async (req, res, next) => {
-  const authorized = req.headers.authorization || null;
-  if (!authorized || !authorized.startsWith('Bearer')) {
-    res.status(403);
-    throw new UnauthorizedError('User is not authorized');
-  }
-  const [, bearerToken] = req.headers.authorization.split(' ');
-
-  try {
-    const decodedBearerToken = jwt.verify(bearerToken, config.jwtSecret);
-
-    if (decodedBearerToken._id !== req.params.id) {
-      return res.status(403).json({ error: 'User is not authorized' });
-    }
-
-    next();
-  } catch (error) {
-    res.status(403);
-    throw err;
-  }
-};
-
-module.exports = { signin, signout, requireSignin, hasAuthorization };
+module.exports = { signin, signout };

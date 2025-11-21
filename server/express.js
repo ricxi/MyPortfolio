@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
       err.name === 'JsonWebTokenError' ||
       err.name === 'ValidationError')
   ) {
-    console.err(err);
+    console.log(err);
     return res.status(statusCode).json({ error: err.message });
   }
 
