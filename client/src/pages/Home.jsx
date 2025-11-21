@@ -23,7 +23,7 @@ const Home = ({ userInfo, hasSubmitted }) => {
         second tries and slow, steady steps.
       </article>
       <article className='home-p'>
-        <div>Checkout my other pages.</div>
+        <div style={{ marginBottom: '7px' }}>Checkout my other pages.</div>
         <NavLink to='projects' className='nav-link-home'>
           Projects
         </NavLink>

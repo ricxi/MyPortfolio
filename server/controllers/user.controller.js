@@ -34,7 +34,7 @@ const list = async (req, res) => {
 const userByID = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select(
-      '_id name email created updated'
+      '_id name email role created updated',
     );
     if (!user)
       return res.status(404).json({
@@ -70,7 +70,7 @@ const update = async (req, res) => {
 const removeById = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id).select(
-      '_id name email'
+      '_id name email',
     );
     if (!deletedUser) return res.status(404).json({ error: 'User not found.' });
     return res.json({

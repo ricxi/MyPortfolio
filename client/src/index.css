@@ -93,23 +93,32 @@ nav .container {
   border: 1px solid #ACACAC;
   box-shadow: 0 4px 15px 0 #D3D3D3;
   color: var(--primary-color);
-  padding: 7px 20px 20px;
+  padding: 15px 20px 20px;
   margin: 7px 0;
+  transition: 0.3s ease;
 }
 
 .panel:hover {
-  box-shadow: 0 4px 29px 0 #D3D3D3;
+  box-shadow: 0 6px 29px 0 #D3D3D3;
 }
 
-.contact-form input {
+.form-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
   display: block;
   margin: 5px;
   padding: 5px;
+  font-size: 1.1rem;
 }
 
-.contact-form textarea {
+form textarea {
   margin: 5px;
   padding: 5px;
+  font-size: 1.1rem;
 }
 
 /* Button styles for submit button on Contact Information page */
@@ -178,4 +187,35 @@ ul {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 15px;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.err-msg {
+  color: red;
+  border-bottom: 1px solid red;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+/* Button styles for signout button on nav bar */
+.nav-button {
+  color: var(--secondary-color);
+  text-decoration: none;
+  border: 1px solid var(--secondary-color);
+  background: var(--primary-color);
+  padding: 3px 8px;
+  margin: 2px;
+  font-size: 1.1rem;
+  transition: ease 0.31s;
+}
+
+.nav-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  cursor: pointer;
 }

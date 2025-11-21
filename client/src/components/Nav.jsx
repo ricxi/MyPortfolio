@@ -1,6 +1,16 @@
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
+import { useAuth } from '../contexts/AuthContext';
+import { addNavLinkClass } from '../helpers/helperStyles';
 
 const Nav = () => {
+  const navigate = useNavigate();
+  const { isSignedIn, signOutUser } = useAuth();
+
+  const handleSignOut = () => {
+    signOutUser();
+    navigate('/');
+  };
+
   return (
     <nav>
       <div className='container'>
@@ -24,14 +34,24 @@ const Nav = () => {
           <NavLink to='contact' className={addNavLinkClass} end>
             Contact Me
           </NavLink>
+          {isSignedIn ? (
+            <button className='nav-button' onClick={handleSignOut}>
+              Sign Out
+            </button>
+          ) : (
+            <>
+              <NavLink to='/signup' className={addNavLinkClass} end>
+                Sign Up
+              </NavLink>
+              <NavLink to='/signin' className={addNavLinkClass} end>
+                Sign In
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </nav>
   );
 };
-
-const addNavLinkClass = ({ isActive }) =>
-  /* Adds nav-link class and triggers the link-active class for active NavLink */
-  `nav-link ${isActive ? 'link-active' : ''}`.trim();
 
 export default Nav;

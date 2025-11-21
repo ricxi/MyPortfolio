@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
-import Card from './Card';
-import ContactForm from './ContactForm';
+import Card from '../components/Card';
+import ContactForm from '../components/ContactForm';
 
 const Contact = ({ onSubmitContactForm }) => {
   let navigate = useNavigate();

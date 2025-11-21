@@ -16,6 +16,12 @@ const UserSchema = new mongoose.Schema({
     required: 'Email is required',
   },
 
+  role: {
+    type: String,
+    enum: ['admin', 'user'],
+    default: 'user',
+  },
+
   created: {
     type: Date,
     default: Date.now,
@@ -46,7 +52,7 @@ UserSchema.virtual('password')
 
 UserSchema.path('hashed_password').validate(function (v) {
   if (this._password && this._password.length < 6) {
-    this.invalidate('password', 'Password must be at least 6 characters.');
+    this.invalidate('password', 'must be at least 6 characters.');
   }
 
   if (this.isNew && !this._password) {
