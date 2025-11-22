@@ -3,11 +3,11 @@ import { NavLink } from 'react-router';
 const Home = ({ userInfo, hasSubmitted }) => {
   return (
     <>
-      {hasSubmitted ? (
+      {/* {hasSubmitted ? (
         <p className='panel modal-msg'>{addMessageToHomePage(userInfo)} </p>
       ) : (
         ''
-      )}
+      )} */}
       <h1>Home</h1>
       <article className='btm-border'>
         Welcome! This is my little corner of the internet for low-stress
@@ -44,13 +44,13 @@ const Home = ({ userInfo, hasSubmitted }) => {
   );
 };
 
-const addMessageToHomePage = (userInfo) => {
-  /* Adds a messge to the home page when the user submits their information on the Contact Information Page */
-  return (
-    'Hello, ' +
-    userInfo.firstName +
-    '! Thank you for your message. We will try to get back to you as soon as we can.'
-  );
-};
+// const addMessageToHomePage = (userInfo) => {
+//   /* Adds a messge to the home page when the user submits their information on the Contact Information Page */
+//   return (
+//     'Hello, ' +
+//     userInfo.firstName +
+//     '! Thank you for your message. We will try to get back to you as soon as we can.'
+//   );
+// };
 
 export default Home;

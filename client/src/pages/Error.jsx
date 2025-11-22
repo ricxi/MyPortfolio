@@ -6,7 +6,7 @@ const Error = () => {
 
   return (
     <div>
-      <h1>Error</h1>
+      <h1 style={{ color: 'red' }}>Error</h1>
       {hasError && <p>{message}</p>}
       <Link to='/'>Home</Link>
     </div>

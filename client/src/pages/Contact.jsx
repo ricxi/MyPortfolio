@@ -1,14 +1,27 @@
 import { useNavigate } from 'react-router';
 import Card from '../components/Card';
 import ContactForm from '../components/ContactForm';
+import { addContact } from '../services/contacts';
 
-const Contact = ({ onSubmitContactForm }) => {
-  let navigate = useNavigate();
+const Contact = () => {
+  const navigate = useNavigate();
 
-  const onSubmit = (userInfo) => {
-    // e.preventDefault();
-    onSubmitContactForm(userInfo);
-    navigate('/');
+  const handleSubmit = async (contactData) => {
+    const { hasError, message } = await addContact(contactData);
+
+    if (hasError)
+      navigate('/error', {
+        state: {
+          hasError,
+          message: message,
+        },
+      });
+
+    if (!hasError) {
+      navigate('/success', {
+        state: { message: 'Your contact information has been sent.' },
+      });
+    }
   };
 
   return (
@@ -22,7 +35,7 @@ const Contact = ({ onSubmitContactForm }) => {
       </Card>
       <Card>
         <p>Please leave a message with your contact information.</p>
-        <ContactForm onSubmit={onSubmit} />
+        <ContactForm handleSubmit={handleSubmit} className='form' />
       </Card>
     </>
   );

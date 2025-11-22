@@ -1,4 +1,38 @@
+import { useState, useEffect } from 'react';
+import Card from '../components/Card';
+import { addProject, getProjectsById } from '../services/projects';
+import ProjectsForm from '../components/ProjectsForm';
+import ProjectCard from '../components/ProjectCard';
+
 const Projects = () => {
+  const [projects, setProjects] = useState([]);
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    const { hasError, data } = await getProjectsById();
+    if (!hasError) {
+      setProjects(data);
+    }
+  };
+
+  const handleAdd = async (projectData) => {
+    await addProject(projectData);
+    fetchProjects();
+  };
+
+  const handleDelete = (qualificationId) => {
+    console.log(qualificationId);
+  };
+
+  const handleUpdate = (updatedProject) => {
+    console.log('BIG LEAGUES');
+    handleUpdate(updatedProject);
+  };
+
   return (
     <>
       <h1>Projects Page</h1>
@@ -20,34 +54,25 @@ const Projects = () => {
           still in development.
         </p>
       </section>
-      <section className='grid-wrapper'>
-        <h2>Maze Adventure Game</h2>
-        <img
-          src='/maze_game.jpg'
-          alt='image not found'
-          className='img-project'
+
+      {projects.map((project) => (
+        <ProjectCard
+          key={project._id}
+          project={project}
+          onHandleUpdate={handleUpdate}
+          handleDelete={handleDelete}
         />
-        <p>
-          In my game simulation course, I am developing a 3D maze adventure
-          game. The game design document was just submitted last week, so it is
-          still in its initial phase. I plan to work as a solo developer. I will
-          be focusing on procedural generation, pathfinding, and puzzle-driven
-          exploration. The current outcome is a prototype plan with defined
-          milestones; near-term goals to validate movement, and readability.{' '}
-        </p>
-      </section>
-      <section className='grid-wrapper btm-border'>
-        <h2>Wooden Stool</h2>
-        <img src='/stools.jpg' alt='image not found' className='img-project' />
-        <p>
-          I'm currently working on a woodworking project (one of my hobby side
-          projects). I'm building a small stool from pre-milled boards with
-          mortise-and-tenon joinery. I'll be shaping the seat and legs,
-          dry-fitting, refining with a block plane, then sanding and finishing.
-          I have never documented a woodworking project, but I have seen other
-          carpenters do so with great success. The more I do woodworking, the
-          more it reminds me of building software.
-        </p>
+      ))}
+
+      <section>
+        <Card>
+          <h2>Add a New Project</h2>
+          <ProjectsForm
+            handleAdd={handleAdd}
+            handleDelete={handleDelete}
+            className='form'
+          />
+        </Card>
       </section>
     </>
   );

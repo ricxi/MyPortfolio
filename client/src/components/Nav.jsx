@@ -25,8 +25,8 @@ const Nav = () => {
           <NavLink to='projects' className={addNavLinkClass} end>
             Projects
           </NavLink>
-          <NavLink to='education' className={addNavLinkClass} end>
-            Education
+          <NavLink to='qualifications' className={addNavLinkClass} end>
+            Qualifications
           </NavLink>
           <NavLink to='services' className={addNavLinkClass} end>
             Services

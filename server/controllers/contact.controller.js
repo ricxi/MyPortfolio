@@ -24,7 +24,7 @@ const create = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     const contacts = await Contact.find().select(
-      '_id firstname lastname email'
+      '_id firstname lastname email phone message',
     );
     return res.json(contacts);
   } catch (err) {
@@ -38,7 +38,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const contact = await Contact.findById(req.params.id).select(
-      '_id firstname lastname email '
+      '_id firstname lastname email phone message ',
     );
     if (!contact)
       return res.status(404).json({
@@ -64,7 +64,7 @@ const updateById = async (req, res) => {
       {
         new: true,
         runValidators: true,
-      }
+      },
     ).select('_id firstname lastname email');
     if (!updatedContact) {
       return res.status(404).json({ error: 'Contact not found.' });
@@ -82,7 +82,7 @@ const updateById = async (req, res) => {
 const deleteById = async (req, res) => {
   try {
     const deletedContact = await Contact.findByIdAndDelete(
-      req.params.id
+      req.params.id,
     ).select('_id firstname lastname email');
 
     if (!deletedContact)

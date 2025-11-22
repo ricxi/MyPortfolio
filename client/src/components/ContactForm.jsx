@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = ({ handleSubmit, className }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleAdd = (e) => {
     e.preventDefault();
 
-    onSubmit({
-      firstName,
-      lastName,
-      contactNumber,
+    handleSubmit({
+      firstname: firstName,
+      lastname: lastName,
+      number: contactNumber,
       email,
       message,
     });
@@ -27,7 +27,7 @@ const ContactForm = ({ onSubmit }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className='contact-form'>
+      <form onSubmit={handleAdd} className={className}>
         <input
           type='text'
           id='firstName'
@@ -35,7 +35,7 @@ const ContactForm = ({ onSubmit }) => {
           placeholder='First Name'
           required
           value={firstName}
-          onChange={({ target }) => setFirstName(target.value)}
+          onChange={({ target: { value } }) => setFirstName(value)}
         />
 
         <input
@@ -45,7 +45,7 @@ const ContactForm = ({ onSubmit }) => {
           placeholder='Last Name'
           required
           value={lastName}
-          onChange={({ target }) => setLastName(target.value)}
+          onChange={({ target: { value } }) => setLastName(value)}
         />
 
         <input
@@ -55,7 +55,7 @@ const ContactForm = ({ onSubmit }) => {
           placeholder='Contact Number'
           required
           value={contactNumber}
-          onChange={({ target }) => setContactNumber(target.value)}
+          onChange={({ target: { value } }) => setContactNumber(value)}
         />
 
         <input
@@ -65,7 +65,7 @@ const ContactForm = ({ onSubmit }) => {
           placeholder='Email'
           required
           value={email}
-          onChange={({ target }) => setEmail(target.value)}
+          onChange={({ target: { value } }) => setEmail(value)}
         />
 
         <textarea
@@ -74,7 +74,7 @@ const ContactForm = ({ onSubmit }) => {
           rows='8'
           placeholder='Leave a message'
           value={message}
-          onChange={({ target }) => setMessage(target.value)}
+          onChange={({ target: { value } }) => setMessage(value)}
         ></textarea>
 
         <button type='submit' className='form-button'>

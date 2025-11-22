@@ -139,6 +139,12 @@ form textarea {
   cursor: pointer;
 }
 
+.form label {
+  display: block;
+  margin: 10px 6px 0px;
+  font-size: 1.1rem;
+}
+
 article {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -217,5 +223,40 @@ ul {
 .nav-button:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
+  cursor: pointer;
+}
+
+.btn-basic {
+  color: var(--secondary-color);
+  text-decoration: none;
+  border: 1px solid var(--primary-color);
+  background: var(--primary-color);
+  padding: 10px 8px;
+  margin: 2px;
+  font-size: 1.1rem;
+  transition: ease 0.22s;
+}
+
+.btn-basic:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.btn-red {
+  color: var(--secondary-color);
+  text-decoration: none;
+  border: 1px solid var(--primary-color);
+  background: var(--primary-color);
+  padding: 10px 8px;
+  margin: 2px;
+  font-size: 1.1rem;
+  transition: ease 0.22s;
+}
+
+.btn-red:hover {
+  background-color: #CC5500;
+  border: 1px solid #FF0000;
+  /* color: var(--primary-color); */
   cursor: pointer;
 }
