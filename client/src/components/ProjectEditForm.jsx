@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const ProjectEditForm = ({ project, onUpdate, className }) => {
+const ProjectEditForm = ({ project, onSubmitUpdate, className }) => {
   const [projectTitle, setProjectTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completionDate, setCompletionDate] = useState('');
@@ -28,7 +28,7 @@ const ProjectEditForm = ({ project, onUpdate, className }) => {
       completion: completionDate,
     };
 
-    onUpdate(updatedProject);
+    onSubmitUpdate(updatedProject);
   };
 
   return (

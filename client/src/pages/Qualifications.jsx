@@ -6,6 +6,7 @@ import QualificationCard from '../components/QualificationCard';
 import {
   addQualification,
   getQualificationsById,
+  deleteQualificationById,
 } from '../services/qualifications';
 
 const Qualifications = () => {
@@ -27,8 +28,11 @@ const Qualifications = () => {
     fetchQualifications();
   };
 
-  const handleDelete = (qualificationId) => {
-    console.log(qualificationId);
+  const handleDelete = async (qualificationId) => {
+    const data = await deleteQualificationById(qualificationId);
+
+    if (data && !data.hasError) fetchQualifications();
+    else console.error(data);
   };
 
   const handleUpdate = (updatedQualification) => {

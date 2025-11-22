@@ -7,10 +7,9 @@ const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
 
   const [showEditForm, setShowEditForm] = useState(false);
 
-  // const onShowEdit = (e) => {
-  //   e.preventDefault();
-  //   setShowEditForm(true);
-  // };
+  const onUpdate = (updatedProject) => {
+    handleUpdate({ _id, ...updatedProject });
+  };
 
   const onDelete = (e) => {
     e.preventDefault();
@@ -39,7 +38,7 @@ const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
         <Card style={{ width: '50%' }}>
           <ProjectEditForm
             project={project}
-            onUpdate={handleUpdate}
+            onSubmitUpdate={onUpdate}
             className='form'
           />
         </Card>

@@ -7,9 +7,13 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
 
   const [showEditForm, setShowEditForm] = useState(false);
 
+  const onUpdate = (updatedQualification) => {
+    handleUpdate({ _id, ...updatedQualification });
+  };
+
   const onDelete = (e) => {
     e.preventDefault();
-    console.log(_id);
+    handleDelete(_id);
   };
 
   return (
@@ -36,7 +40,7 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
         <Card style={{ width: '50%' }}>
           <QualificationEditForm
             qualification={qualification}
-            onUpdate={handleUpdate}
+            onSubmitUpdate={onUpdate}
             className='form'
           />
         </Card>

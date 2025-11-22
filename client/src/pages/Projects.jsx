@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import Card from '../components/Card';
-import { addProject, getProjectsById } from '../services/projects';
+import {
+  addProject,
+  getProjectsById,
+  deleteProjectById,
+} from '../services/projects';
 import ProjectsForm from '../components/ProjectsForm';
 import ProjectCard from '../components/ProjectCard';
 
@@ -23,8 +27,10 @@ const Projects = () => {
     fetchProjects();
   };
 
-  const handleDelete = (qualificationId) => {
-    console.log(qualificationId);
+  const handleDelete = async (projectId) => {
+    const data = await deleteProjectById(projectId);
+    if (data && !data.hasError) fetchProjects();
+    else console.error(data);
   };
 
   const handleUpdate = (updatedProject) => {
@@ -65,11 +71,7 @@ const Projects = () => {
       <section>
         <Card>
           <h2>Add a New Project</h2>
-          <ProjectsForm
-            handleAdd={handleAdd}
-            handleDelete={handleDelete}
-            className='form'
-          />
+          <ProjectsForm handleAdd={handleAdd} className='form' />
         </Card>
       </section>
     </>
