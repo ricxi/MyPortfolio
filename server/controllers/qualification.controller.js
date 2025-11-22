@@ -24,7 +24,7 @@ const create = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     const qualifications = await Qualification.find().select(
-      '_id title firstname lastname email completion description'
+      '_id title firstname lastname email completion description',
     );
     return res.json(qualifications);
     // ? What happens if qualifications not found?
@@ -39,7 +39,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const qualification = await Qualification.findById(req.params.id).select(
-      '_id title firstname lastname email completion description'
+      '_id title firstname lastname email completion description',
     );
     if (!qualification)
       return res.status(404).json({
@@ -64,7 +64,7 @@ const updateById = async (req, res) => {
       {
         new: true,
         runValidators: true,
-      }
+      },
     ).select('_id title firstname lastname email completion description');
     if (!updatedQualification)
       return res.status(404).json({ error: 'Qualification not found.' });
@@ -81,7 +81,7 @@ const updateById = async (req, res) => {
 const deleteById = async (req, res) => {
   try {
     const deletedQualification = await Qualification.findByIdAndDelete(
-      req.params.id
+      req.params.id,
     ).select('_id');
 
     if (!deletedQualification)

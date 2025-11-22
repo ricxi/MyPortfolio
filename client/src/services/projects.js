@@ -42,13 +42,14 @@ export const getProjectsById = async () => {
   return { hasError: false, data };
 };
 
-export const updateProjectById = async () => {
-  const res = await fetch(`${API_URL}`, {
+export const updateProjectById = async (projectId, updatedProject) => {
+  const res = await fetch(`${API_URL}/${projectId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       // Authorization: `$Bearer ${token}`,
     },
+    body: JSON.stringify(updatedProject),
   });
 
   if (res.status !== 200) {

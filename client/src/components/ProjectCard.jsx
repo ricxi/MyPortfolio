@@ -8,7 +8,7 @@ const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const onUpdate = (updatedProject) => {
-    handleUpdate({ _id, ...updatedProject });
+    handleUpdate(_id, updatedProject);
   };
 
   const onDelete = (e) => {

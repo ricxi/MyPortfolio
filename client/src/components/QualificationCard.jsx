@@ -8,7 +8,7 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const onUpdate = (updatedQualification) => {
-    handleUpdate({ _id, ...updatedQualification });
+    handleUpdate(_id, updatedQualification);
   };
 
   const onDelete = (e) => {
@@ -17,7 +17,7 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
   };
 
   return (
-    <section key={_id}>
+    <section>
       <h2>
         {title} ({completion ? new Date(completion).getFullYear() : 'N/A'})
       </h2>

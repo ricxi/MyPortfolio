@@ -43,6 +43,30 @@ export const addQualification = async (qualificationData) => {
   return { hasError: false, data };
 };
 
+export const updateQualificationById = async (
+  qualificationId,
+  updatedQualification,
+) => {
+  const res = await fetch(`${API_URL}/${qualificationId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      // Authorization: `$Bearer ${token}`,
+    },
+    body: JSON.stringify(updatedQualification),
+  });
+
+  if (res.status !== 200) {
+    return {
+      hasError: true,
+      message: 'A problem has occured. Please try again.',
+    };
+  }
+
+  const data = await res.json();
+  return { hasError: false, data };
+};
+
 export const deleteQualificationById = async (qualificationId) => {
   const res = await fetch(`${API_URL}/${qualificationId}`, {
     method: 'DELETE',

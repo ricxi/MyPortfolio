@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { addProject } from '../services/projects';
 
 const ProjectsForm = ({ handleAdd, className }) => {
   const [projectTitle, setProjectTitle] = useState('');

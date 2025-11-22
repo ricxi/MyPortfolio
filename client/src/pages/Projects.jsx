@@ -4,6 +4,7 @@ import {
   addProject,
   getProjectsById,
   deleteProjectById,
+  updateProjectById,
 } from '../services/projects';
 import ProjectsForm from '../components/ProjectsForm';
 import ProjectCard from '../components/ProjectCard';
@@ -30,11 +31,13 @@ const Projects = () => {
   const handleDelete = async (projectId) => {
     const data = await deleteProjectById(projectId);
     if (data && !data.hasError) fetchProjects();
-    else console.error(data);
+    else console.error(data); // TODO: navigate to error page
   };
 
-  const handleUpdate = (updatedProject) => {
-    console.log(updatedProject);
+  const handleUpdate = async (projectId, updatedProject) => {
+    const data = await updateProjectById(projectId, updatedProject);
+    if (data && !data.hasError) fetchProjects();
+    else console.error(data); // TODO: navigate to error page
   };
 
   return (
