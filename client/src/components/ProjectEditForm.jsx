@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const ProjectEditForm = ({
-  project,
-  onSubmitUpdate,
-  onHideEditForm,
-  className,
-}) => {
+const ProjectEditForm = ({ project, onUpdate, className }) => {
   const [projectTitle, setProjectTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completionDate, setCompletionDate] = useState('');
@@ -33,11 +28,12 @@ const ProjectEditForm = ({
       completion: completionDate,
     };
 
-    onSubmitUpdate(updatedProject);
+    onUpdate(updatedProject);
   };
 
   return (
     <form className={className} onSubmit={handleSubmit}>
+      <label htmlFor='projectTitle'>Title</label>
       <input
         type='text'
         id='projectTitle'
@@ -48,6 +44,7 @@ const ProjectEditForm = ({
         onChange={({ target: { value } }) => setProjectTitle(value)}
       />
 
+      <label htmlFor='description'>Description</label>
       <input
         type='text'
         id='description'
@@ -58,6 +55,7 @@ const ProjectEditForm = ({
         onChange={({ target: { value } }) => setDescription(value)}
       />
 
+      <label htmlFor='email'>Email</label>
       <input
         type='email'
         id='email'
@@ -68,7 +66,7 @@ const ProjectEditForm = ({
         onChange={({ target: { value } }) => setEmail(value)}
       />
 
-      <label htmlFor='completion'>Completion</label>
+      <label htmlFor='completion'>Completion Date</label>
       <input
         type='date'
         id='completion'
@@ -79,9 +77,6 @@ const ProjectEditForm = ({
       />
       <button className='btn-basic' type='submit'>
         Update
-      </button>
-      <button className='btn-red' onClick={(e) => onHideEditForm(false)}>
-        Cancel
       </button>
     </form>
   );

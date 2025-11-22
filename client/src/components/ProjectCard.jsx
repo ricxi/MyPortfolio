@@ -2,23 +2,19 @@ import { useState } from 'react';
 import Card from './Card';
 import ProjectEditForm from './ProjectEditForm';
 
-const ProjectCard = ({ project, onHandleUpdate, handleDelete }) => {
+const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
   const { _id, title, completion, description } = project;
 
   const [showEditForm, setShowEditForm] = useState(false);
 
-  const onShowEdit = (e) => {
-    e.preventDefault();
-    setShowEditForm(true);
-  };
+  // const onShowEdit = (e) => {
+  //   e.preventDefault();
+  //   setShowEditForm(true);
+  // };
 
   const onDelete = (e) => {
     e.preventDefault();
     handleDelete(_id);
-  };
-
-  const onUpdate = (updatedProject) => {
-    onHandleUpdate(updatedProject);
   };
 
   return (
@@ -28,21 +24,23 @@ const ProjectCard = ({ project, onHandleUpdate, handleDelete }) => {
       </h2>
       <p>{description}</p>
       {showEditForm ? (
-        <></>
+        <button className='btn-red' onClick={() => setShowEditForm(false)}>
+          Cancel
+        </button>
       ) : (
-        <button className='btn-basic' onClick={onShowEdit}>
+        <button className='btn-basic' onClick={() => setShowEditForm(true)}>
           edit
         </button>
       )}
-      <button className='btn-red' onClick={onDelete}>
+      <button className='btn-hv-red' onClick={onDelete}>
         delete
       </button>
       {showEditForm ? (
         <Card style={{ width: '50%' }}>
           <ProjectEditForm
             project={project}
-            onHideEditForm={setShowEditForm}
-            onSubmitUpdate={onUpdate}
+            onUpdate={handleUpdate}
+            className='form'
           />
         </Card>
       ) : (

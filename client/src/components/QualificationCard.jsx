@@ -2,19 +2,14 @@ import { useState } from 'react';
 import Card from './Card';
 import QualificationEditForm from '../components/QualificationEditForm';
 
-const QualificationCard = ({ qualification, handleDelete }) => {
+const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
   const { _id, title, completion, description } = qualification;
 
   const [showEditForm, setShowEditForm] = useState(false);
 
-  const onShowEdit = (e) => {
-    e.preventDefault();
-    setShowEditForm(true);
-  };
-
   const onDelete = (e) => {
     e.preventDefault();
-    handleDelete(_id);
+    console.log(_id);
   };
 
   return (
@@ -26,20 +21,23 @@ const QualificationCard = ({ qualification, handleDelete }) => {
         <li>{description}</li>
       </ul>
       {showEditForm ? (
-        <></>
+        <button className='btn-red' onClick={() => setShowEditForm(false)}>
+          Cancel
+        </button>
       ) : (
-        <button className='btn-basic' onClick={onShowEdit}>
+        <button className='btn-basic' onClick={() => setShowEditForm(true)}>
           Edit
         </button>
       )}
-      <button className='btn-red' onClick={onDelete}>
+      <button className='btn-hv-red' onClick={onDelete}>
         delete
       </button>
       {showEditForm ? (
         <Card style={{ width: '50%' }}>
           <QualificationEditForm
             qualification={qualification}
-            handleHideEditForm={setShowEditForm}
+            onUpdate={handleUpdate}
+            className='form'
           />
         </Card>
       ) : (

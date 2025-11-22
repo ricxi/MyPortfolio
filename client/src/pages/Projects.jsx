@@ -6,7 +6,6 @@ import ProjectCard from '../components/ProjectCard';
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
-  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     fetchProjects();
@@ -29,8 +28,7 @@ const Projects = () => {
   };
 
   const handleUpdate = (updatedProject) => {
-    console.log('BIG LEAGUES');
-    handleUpdate(updatedProject);
+    console.log(updatedProject);
   };
 
   return (
@@ -59,7 +57,7 @@ const Projects = () => {
         <ProjectCard
           key={project._id}
           project={project}
-          onHandleUpdate={handleUpdate}
+          handleUpdate={handleUpdate}
           handleDelete={handleDelete}
         />
       ))}

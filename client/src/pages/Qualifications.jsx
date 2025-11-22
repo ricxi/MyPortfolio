@@ -31,8 +31,8 @@ const Qualifications = () => {
     console.log(qualificationId);
   };
 
-  const handleShowEdit = () => {
-    console.log('EDIT ME');
+  const handleUpdate = (updatedQualification) => {
+    console.log(updatedQualification);
   };
 
   return (
@@ -57,7 +57,7 @@ const Qualifications = () => {
         <QualificationCard
           key={qualificationPayload._id}
           qualification={qualificationPayload}
-          handleShowEdit={handleShowEdit}
+          handleUpdate={handleUpdate}
           handleDelete={handleDelete}
         />
       ))}
@@ -65,12 +65,7 @@ const Qualifications = () => {
       <section>
         <Card>
           <h2>Add Qualification</h2>
-          <QualificationsForm
-            className='form'
-            handleAdd={handleAdd}
-            handleDelete={handleDelete}
-            handleShowEdit={handleShowEdit}
-          />
+          <QualificationsForm className='form' handleAdd={handleAdd} />
         </Card>
       </section>
     </>

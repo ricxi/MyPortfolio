@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const QualificationEditForm = ({
-  qualification,
-  handleUpdate,
-  handleHideEditForm,
-  className,
-}) => {
+const QualificationEditForm = ({ qualification, onUpdate, className }) => {
   const [qualificationTitle, setQualificationTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completionDate, setCompletionDate] = useState('');
@@ -33,57 +28,59 @@ const QualificationEditForm = ({
       completion: completionDate,
     };
 
-    // handleUpdate(updatedQualification);
+    onUpdate(updatedQualification);
   };
 
   return (
-    <form className={className} onSubmit={handleSubmit}>
-      <input
-        type='text'
-        id='qualificationTitle'
-        name='qualificationTitle'
-        placeholder='Title'
-        required
-        value={qualificationTitle}
-        onChange={({ target: { value } }) => setQualificationTitle(value)}
-      />
+    <>
+      <form className={className} onSubmit={handleSubmit}>
+        <label htmlFor='qualificationTitle'>Title</label>
+        <input
+          type='text'
+          id='qualificationTitle'
+          name='qualificationTitle'
+          placeholder='Title'
+          required
+          value={qualificationTitle}
+          onChange={({ target: { value } }) => setQualificationTitle(value)}
+        />
 
-      <input
-        type='text'
-        id='description'
-        name='description'
-        placeholder='Description'
-        required
-        value={description}
-        onChange={({ target: { value } }) => setDescription(value)}
-      />
+        <label htmlFor='description'>Description</label>
+        <input
+          type='text'
+          id='description'
+          name='description'
+          placeholder='Description'
+          required
+          value={description}
+          onChange={({ target: { value } }) => setDescription(value)}
+        />
 
-      <input
-        type='email'
-        id='email'
-        name='email'
-        placeholder='Email'
-        required
-        value={email}
-        onChange={({ target: { value } }) => setEmail(value)}
-      />
+        <label htmlFor='email'>Email</label>
+        <input
+          type='email'
+          id='email'
+          name='email'
+          placeholder='Email'
+          required
+          value={email}
+          onChange={({ target: { value } }) => setEmail(value)}
+        />
 
-      <label htmlFor='completion'>Completion</label>
-      <input
-        type='date'
-        id='completion'
-        name='completion'
-        required
-        value={completionDate}
-        onChange={(e) => setCompletionDate(e.target.value)}
-      />
-      <button className='btn-basic' type='submit'>
-        Update
-      </button>
-      <button className='btn-red' onClick={(e) => handleHideEditForm(false)}>
-        Cancel
-      </button>
-    </form>
+        <label htmlFor='completion'>Completion Date</label>
+        <input
+          type='date'
+          id='completion'
+          name='completion'
+          required
+          value={completionDate}
+          onChange={(e) => setCompletionDate(e.target.value)}
+        />
+        <button className='btn-basic' type='submit'>
+          Update
+        </button>
+      </form>
+    </>
   );
 };
 
