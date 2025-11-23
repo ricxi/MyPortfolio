@@ -28,18 +28,18 @@ const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
       />
       <p>{description}</p>
       <div className='btn-toggles'>
+        <button className='btn-hv-red' onClick={onDelete}>
+          Delete
+        </button>
         {showEditForm ? (
           <button className='btn-red' onClick={() => setShowEditForm(false)}>
-            Cancel
+            Close
           </button>
         ) : (
           <button className='btn-basic' onClick={() => setShowEditForm(true)}>
             Edit
           </button>
         )}
-        <button className='btn-hv-red' onClick={onDelete}>
-          Delete
-        </button>
       </div>
       {showEditForm ? (
         <Card className='grid-form' style={{ width: '50%' }}>

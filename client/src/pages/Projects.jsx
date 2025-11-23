@@ -68,14 +68,17 @@ const Projects = () => {
       <h1>Projects Page</h1>
       <article>Here are some projects that I'm currently working on.</article>
 
-      {projects.map((project) => (
-        <ProjectCard
-          key={project._id}
-          project={project}
-          handleUpdate={handleUpdate}
-          handleDelete={handleDelete}
-        />
-      ))}
+      {isSignedIn &&
+        projects &&
+        projects.length > 0 &&
+        projects.map((project) => (
+          <ProjectCard
+            key={project._id}
+            project={project}
+            handleUpdate={handleUpdate}
+            handleDelete={handleDelete}
+          />
+        ))}
 
       <section className='grid-wrapper'>
         <h2>Space Invaders Game</h2>
@@ -86,20 +89,22 @@ const Projects = () => {
         />
         <p>
           In my game programming class, I am working with a team to build a 2D
-          Space Invaders–style shooter game, designing and programming core
-          gameplay systems—player movement, enemy waves, collision detection,
-          sprite animation, and escalating difficulty—while keeping the code
-          clean and modular. I am responsible for controls and the collision
-          system, and review code to maintain standards. The current build is
-          still in development.
+          Space Invaders&ndash;style shooter game, designing and programming
+          core gameplay systems—player movement, enemy waves, collision
+          detection, sprite animation, and escalating difficulty—while keeping
+          the code clean and modular. I am responsible for controls and the
+          collision system, and review code to maintain standards. The current
+          build is still in development.
         </p>
       </section>
-      <section>
-        <Card>
-          <h2>Add a New Project</h2>
-          <ProjectsForm handleAdd={handleAdd} className='form' />
-        </Card>
-      </section>
+      {isSignedIn && (
+        <section>
+          <Card>
+            <h2>Add a New Project</h2>
+            <ProjectsForm handleAdd={handleAdd} className='form' />
+          </Card>
+        </section>
+      )}
     </>
   );
 };

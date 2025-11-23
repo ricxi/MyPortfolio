@@ -1,6 +1,7 @@
 const express = require('express');
 const qualificationCtrl = require('../controllers/qualification.controller.js');
 const auth = require('../middleware/auth.middleware.js');
+const { requireAdmin } = require('../middleware/admin.middleware.js');
 
 const router = express.Router();
 
@@ -10,7 +11,12 @@ router.post(
   qualificationCtrl.create,
 );
 
-router.get('/api/qualifications', auth.requireSignin, qualificationCtrl.getAll);
+router.get(
+  '/api/qualifications',
+  auth.requireSignin,
+  requireAdmin,
+  qualificationCtrl.getAll,
+);
 
 router.get(
   '/api/qualifications/:id',

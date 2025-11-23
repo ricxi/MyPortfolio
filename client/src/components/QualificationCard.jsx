@@ -24,23 +24,23 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
       <ul>
         <li>{description}</li>
       </ul>
+      <button className='btn-hv-red' onClick={onDelete}>
+        Delete
+      </button>
       {showEditForm ? (
         <button className='btn-red' onClick={() => setShowEditForm(false)}>
-          Cancel
+          Close
         </button>
       ) : (
         <button className='btn-basic' onClick={() => setShowEditForm(true)}>
           Edit
         </button>
       )}
-      <button className='btn-hv-red' onClick={onDelete}>
-        Delete
-      </button>
       {showEditForm ? (
         <Card style={{ width: '50%' }}>
           <QualificationEditForm
             qualification={qualification}
-            onSubmitUpdate={onUpdate}
+            onUpdate={onUpdate}
             className='form'
           />
         </Card>

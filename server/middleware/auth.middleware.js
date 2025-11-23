@@ -12,22 +12,15 @@ const requireSignin = (req, res, next) => {
     throw new AuthenticationError('Missing authorization header');
   }
 
-  const testToken = authHeader.split(' ')[1];
-  console.log('Test Token **************************************');
-  console.log(authHeader.startsWith('Bearer'));
-  console.log(authHeader);
-  console.log(testToken);
-  console.log('**************************************');
-
   if (!authHeader.startsWith('Bearer')) {
     res.status(401);
     throw new AuthenticationError('Failed to authenticate user');
   }
 
   const bearerToken = req.headers.authorization.split(' ')[1];
-  console.log(bearerToken);
   try {
-    jwt.verify(bearerToken, config.jwtSecret);
+    const decoded = jwt.verify(bearerToken, config.jwtSecret);
+    req.user = decoded;
     next();
   } catch (err) {
     res.status(401);

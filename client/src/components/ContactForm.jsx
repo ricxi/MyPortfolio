@@ -13,7 +13,7 @@ const ContactForm = ({ handleSubmit, className }) => {
     handleSubmit({
       firstname: firstName,
       lastname: lastName,
-      number: contactNumber,
+      phone: contactNumber,
       email,
       message,
     });
@@ -49,7 +49,7 @@ const ContactForm = ({ handleSubmit, className }) => {
         />
 
         <input
-          type='text'
+          type='tel'
           id='contactNumber'
           name='contactNumber'
           placeholder='Contact Number'

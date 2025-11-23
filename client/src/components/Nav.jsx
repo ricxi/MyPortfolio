@@ -22,17 +22,22 @@ const Nav = () => {
           <NavLink to='about' className={addNavLinkClass} end>
             About Me
           </NavLink>
-          <NavLink to='projects' className={addNavLinkClass} end>
-            Projects
-          </NavLink>
-          <NavLink to='qualifications' className={addNavLinkClass} end>
-            Qualifications
-          </NavLink>
           <NavLink to='services' className={addNavLinkClass} end>
             Services
           </NavLink>
+          {isSignedIn && (
+            <>
+              <NavLink to='projects' className={addNavLinkClass} end>
+                Projects
+              </NavLink>
+              <NavLink to='qualifications' className={addNavLinkClass} end>
+                Qualifications
+              </NavLink>
+            </>
+          )}
+
           <NavLink to='contact' className={addNavLinkClass} end>
-            Contact Me
+            {isSignedIn ? 'Contact' : 'Contact Me'}
           </NavLink>
           {isSignedIn ? (
             <button className='nav-button' onClick={handleSignOut}>

@@ -77,21 +77,25 @@ const Qualifications = () => {
         </ul>
       </section>
 
-      {qualifications.map((qualificationPayload) => (
-        <QualificationCard
-          key={qualificationPayload._id}
-          qualification={qualificationPayload}
-          handleUpdate={handleUpdate}
-          handleDelete={handleDelete}
-        />
-      ))}
-
-      <section>
-        <Card>
-          <h2>Add Qualification</h2>
-          <QualificationsForm className='form' handleAdd={handleAdd} />
-        </Card>
-      </section>
+      {isSignedIn &&
+        qualifications &&
+        qualifications.length > 0 &&
+        qualifications.map((qualification) => (
+          <QualificationCard
+            key={qualification._id}
+            qualification={qualification}
+            handleUpdate={handleUpdate}
+            handleDelete={handleDelete}
+          />
+        ))}
+      {isSignedIn && (
+        <section>
+          <Card>
+            <h2>Add Qualification</h2>
+            <QualificationsForm className='form' handleAdd={handleAdd} />
+          </Card>
+        </section>
+      )}
     </>
   );
 };

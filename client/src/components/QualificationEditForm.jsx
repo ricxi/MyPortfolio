@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const QualificationEditForm = ({
-  qualification,
-  onSubmitUpdate,
-  className,
-}) => {
+const QualificationEditForm = ({ qualification, onUpdate, className }) => {
   const [qualificationTitle, setQualificationTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completionDate, setCompletionDate] = useState('');
@@ -32,7 +28,7 @@ const QualificationEditForm = ({
       completion: completionDate,
     };
 
-    onSubmitUpdate(updatedQualification);
+    onUpdate(updatedQualification);
   };
 
   return (
