@@ -15,14 +15,14 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Projects = () => {
   const navigate = useNavigate();
-  const { jwtToken, isSignedIn } = useAuth();
+  const { jwtToken, isSignedIn, isAdmin } = useAuth();
 
   const [projects, setProjects] = useState([]);
   const [warningMessage, setWarningMessage] = useState('');
 
   useEffect(() => {
     if (isSignedIn) fetchProjects();
-  }, [jwtToken, isSignedIn]);
+  }, [jwtToken, isSignedIn, isAdmin]);
 
   const fetchProjectById = async () => {
     const result = await getProjectsById();
@@ -97,7 +97,7 @@ const Projects = () => {
           build is still in development.
         </p>
       </section>
-      {isSignedIn && (
+      {isSignedIn && isAdmin && (
         <section>
           <Card>
             <h2>Add a New Project</h2>

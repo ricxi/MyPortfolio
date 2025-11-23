@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import Card from './Card';
 import QualificationEditForm from '../components/QualificationEditForm';
+import { useAuth } from '../contexts/AuthContext';
 
 const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
   const { _id, title, completion, description } = qualification;
+
+  const { isAdmin } = useAuth();
 
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -24,28 +27,32 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
       <ul>
         <li>{description}</li>
       </ul>
-      <button className='btn-hv-red' onClick={onDelete}>
-        Delete
-      </button>
-      {showEditForm ? (
-        <button className='btn-red' onClick={() => setShowEditForm(false)}>
-          Close
-        </button>
-      ) : (
-        <button className='btn-basic' onClick={() => setShowEditForm(true)}>
-          Edit
-        </button>
-      )}
-      {showEditForm ? (
-        <Card style={{ width: '50%' }}>
-          <QualificationEditForm
-            qualification={qualification}
-            onUpdate={onUpdate}
-            className='form'
-          />
-        </Card>
-      ) : (
-        <></>
+      {isAdmin && (
+        <>
+          <button className='btn-hv-red' onClick={onDelete}>
+            Delete
+          </button>
+          {showEditForm ? (
+            <button className='btn-red' onClick={() => setShowEditForm(false)}>
+              Close
+            </button>
+          ) : (
+            <button className='btn-basic' onClick={() => setShowEditForm(true)}>
+              Edit
+            </button>
+          )}
+          {showEditForm ? (
+            <Card style={{ width: '50%' }}>
+              <QualificationEditForm
+                qualification={qualification}
+                onUpdate={onUpdate}
+                className='form'
+              />
+            </Card>
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </section>
   );

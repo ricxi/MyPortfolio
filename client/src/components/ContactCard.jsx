@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import Card from './Card';
 import ContactEditForm from './ContactEditForm';
+import { useAuth } from '../contexts/AuthContext';
 
 const ContactCard = ({ contact, handleUpdate, handleDelete }) => {
   const { _id, firstName, lastName, contactNumber, email, message } = contact;
+
+  const { isAdmin } = useAuth();
 
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -29,29 +32,31 @@ const ContactCard = ({ contact, handleUpdate, handleDelete }) => {
       </div>
       <p style={{ borderTop: '1px solid black' }}>Message:</p>
       <p style={{ borderBottom: '1px solid black' }}>{message}</p>
+      {isAdmin && (
+        <>
+          <button className='btn-hv-red' onClick={onDelete}>
+            Delete
+          </button>
+          {showEditForm ? (
+            <button className='btn-red' onClick={() => setShowEditForm(false)}>
+              Close
+            </button>
+          ) : (
+            <button className='btn-basic' onClick={() => setShowEditForm(true)}>
+              Edit
+            </button>
+          )}
 
-      <button className='btn-hv-red' onClick={onDelete}>
-        Delete
-      </button>
-
-      {showEditForm ? (
-        <button className='btn-red' onClick={() => setShowEditForm(false)}>
-          Close
-        </button>
-      ) : (
-        <button className='btn-basic' onClick={() => setShowEditForm(true)}>
-          Edit
-        </button>
-      )}
-
-      {showEditForm && (
-        <Card style={{ width: '50%' }}>
-          <ContactEditForm
-            contact={contact}
-            onUpdate={onUpdate}
-            className='form'
-          />
-        </Card>
+          {showEditForm && (
+            <Card style={{ width: '50%' }}>
+              <ContactEditForm
+                contact={contact}
+                onUpdate={onUpdate}
+                className='form'
+              />
+            </Card>
+          )}
+        </>
       )}
     </Card>
   );

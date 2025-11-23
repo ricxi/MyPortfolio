@@ -11,13 +11,15 @@ import {
 
 const ContactsList = () => {
   const navigate = useNavigate();
-  const { isSignedIn, jwtToken } = useAuth();
+
+  const { jwtToken, isSignedIn, isAdmin } = useAuth();
+
   const [contacts, setContacts] = useState([]);
   const [warningMessage, setWarningMessage] = useState('');
 
   useEffect(() => {
     if (isSignedIn) fetchContacts();
-  }, [jwtToken, isSignedIn]);
+  }, [jwtToken, isSignedIn, isAdmin]);
 
   const fetchContacts = async () => {
     const result = await getAllContacts(jwtToken);

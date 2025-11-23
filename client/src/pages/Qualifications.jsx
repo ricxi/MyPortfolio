@@ -14,14 +14,14 @@ import {
 
 const Qualifications = () => {
   const navigate = useNavigate();
-  const { isSignedIn, jwtToken } = useAuth();
+  const { isSignedIn, isAdmin, jwtToken } = useAuth();
 
   const [qualifications, setQualifications] = useState([]);
   const [warningMessage, setWarningMessage] = useState('');
 
   useEffect(() => {
     if (isSignedIn) fetchQualifications();
-  }, [jwtToken, isSignedIn]);
+  }, [jwtToken, isSignedIn, isAdmin]);
 
   const fetchQualifications = async () => {
     const result = await getAllQualifications(jwtToken);
@@ -88,7 +88,7 @@ const Qualifications = () => {
             handleDelete={handleDelete}
           />
         ))}
-      {isSignedIn && (
+      {isSignedIn && isAdmin && (
         <section>
           <Card>
             <h2>Add Qualification</h2>

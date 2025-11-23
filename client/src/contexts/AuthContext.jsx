@@ -133,6 +133,7 @@ export function AuthProvider({ children }) {
         jwtToken,
         isSignedIn,
         isAuthorized,
+        isAdmin,
         signUpUser,
         signInUser,
         signOutUser,
