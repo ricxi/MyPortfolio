@@ -1,19 +1,35 @@
 const express = require('express');
 const projectCtrl = require('../controllers/project.controller.js');
-const auth = require('../middleware/auth.middleware.js');
+const { requireSignin } = require('../middleware/auth.middleware.js');
+const { requireAdmin } = require('../middleware/admin.middleware.js');
 
 const router = express.Router();
 
-router.post('/api/projects', auth.requireSignin, projectCtrl.create);
+router.post('/api/projects', requireSignin, requireAdmin, projectCtrl.create);
 
-router.get('/api/projects', auth.requireSignin, projectCtrl.getAll);
+router.get('/api/projects', requireSignin, projectCtrl.getAll);
 
-router.get('/api/projects/:id', auth.requireSignin, projectCtrl.getById);
+router.get('/api/projects/:id', requireSignin, projectCtrl.getById);
 
-router.put('/api/projects/:id', auth.requireSignin, projectCtrl.updateById);
+router.put(
+  '/api/projects/:id',
+  requireSignin,
+  requireAdmin,
+  projectCtrl.updateById,
+);
 
-router.delete('/api/projects/:id', auth.requireSignin, projectCtrl.deleteById);
+router.delete(
+  '/api/projects/:id',
+  requireSignin,
+  requireAdmin,
+  projectCtrl.deleteById,
+);
 
-router.delete('/api/projects', auth.requireSignin, projectCtrl.deleteAll);
+router.delete(
+  '/api/projects',
+  requireSignin,
+  requireAdmin,
+  projectCtrl.deleteAll,
+);
 
 module.exports = router;
