@@ -1,51 +1,66 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
 import Card from '../components/Card';
+import WarningModal from '../components/WarningModal';
 import QualificationsForm from '../components/QualificationsForm';
 import QualificationCard from '../components/QualificationCard';
 import {
   addQualification,
-  getQualificationsById,
+  getAllQualifications,
   updateQualificationById,
   deleteQualificationById,
 } from '../services/qualifications';
 
 const Qualifications = () => {
+  const navigate = useNavigate();
+  const { isSignedIn, jwtToken } = useAuth();
+
   const [qualifications, setQualifications] = useState([]);
+  const [warningMessage, setWarningMessage] = useState('');
 
   useEffect(() => {
-    fetchQualifications();
-  }, []);
+    if (isSignedIn) fetchQualifications();
+  }, [jwtToken, isSignedIn]);
 
   const fetchQualifications = async () => {
-    const { hasError, data } = await getQualificationsById();
-    if (!hasError) {
-      setQualifications(data);
+    const result = await getAllQualifications(jwtToken);
+    if (result.hasError) {
+      navigate('/error', {
+        state: { hasError: result.hasError, message: result.message },
+      });
+      return;
     }
+    setQualifications(result.data);
   };
 
   const handleAdd = async (qualificationData) => {
-    await addQualification(qualificationData);
-    fetchQualifications();
+    const result = await addQualification(jwtToken, qualificationData);
+    if (result && !result.hasError) fetchQualifications();
+    else setWarningMessage(result.message);
   };
 
   const handleDelete = async (qualificationId) => {
-    const data = await deleteQualificationById(qualificationId);
-    if (data && !data.hasError) fetchQualifications();
-    else console.error(data);
+    const result = await deleteQualificationById(jwtToken, qualificationId);
+    if (result && !result.hasError) fetchQualifications();
+    else setWarningMessage(result.message);
   };
 
   const handleUpdate = async (qualificationId, updatedQualification) => {
-    const data = await updateQualificationById(
+    const result = await updateQualificationById(
+      jwtToken,
       qualificationId,
       updatedQualification,
     );
-    if (data && !data.hasError) fetchQualifications();
-    else console.error(data);
+    if (result && !result.hasError) fetchQualifications();
+    else setWarningMessage(result.message);
   };
 
   return (
     <>
+      {warningMessage.length !== 0 && (
+        <WarningModal message={warningMessage} setMessage={setWarningMessage} />
+      )}
       <h1>Education &amp; Qualifications</h1>
       <section>
         <h2>University of Ottawa (2017)</h2>

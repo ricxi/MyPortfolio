@@ -1,88 +1,112 @@
 const API_URL = '/api/qualifications';
 
-// export const getQualificationsById = async (userId, token) => {
-export const getQualificationsById = async () => {
-  // const res = await fetch(`${API_URL}/${userId}`, {
-  const res = await fetch(`${API_URL}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // Authorization: `$Bearer ${token}`,
-    },
-  });
+export const addQualification = async (token, qualificationData) => {
+  try {
+    const res = await fetch(`${API_URL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(qualificationData),
+    });
 
-  if (res.status !== 200) {
+    const data = await res.json();
+
+    if (res.status !== 201 && res.status !== 200) {
+      throw new Error('A problem occurred while adding a qualification');
+    }
+
+    return { hasError: false, data };
+  } catch (error) {
     return {
       hasError: true,
-      message: 'A problem has occured. Please try again.',
+      message: 'A serious error has occurred. Please try again.',
     };
   }
-
-  const data = await res.json();
-  return { hasError: false, data };
 };
 
-export const addQualification = async (qualificationData) => {
-  const res = await fetch(`${API_URL}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      // Authorization: `$Bearer ${token}`,
-    },
-    body: JSON.stringify(qualificationData),
-  });
+export const getAllQualifications = async (token) => {
+  try {
+    const res = await fetch(`${API_URL}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  if (res.status !== 200) {
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      console.error(data);
+      throw new Error('A problem occurred while retreiving all qualifications');
+    }
+
+    return { hasError: false, data };
+  } catch (error) {
     return {
       hasError: true,
-      message: 'A problem has occured. Please try again.',
+      message: error.message,
     };
   }
-
-  const data = await res.json();
-  return { hasError: false, data };
 };
 
 export const updateQualificationById = async (
+  token,
   qualificationId,
   updatedQualification,
 ) => {
-  const res = await fetch(`${API_URL}/${qualificationId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      // Authorization: `$Bearer ${token}`,
-    },
-    body: JSON.stringify(updatedQualification),
-  });
+  try {
+    const res = await fetch(`${API_URL}/${qualificationId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedQualification),
+    });
 
-  if (res.status !== 200) {
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(
+        `A problem occured while updating qualification with the id: ${qualificationId}.`,
+      );
+    }
+
+    return { hasError: false, data };
+  } catch (error) {
     return {
       hasError: true,
-      message: 'A problem has occured. Please try again.',
+      message: error.message,
     };
   }
-
-  const data = await res.json();
-  return { hasError: false, data };
 };
 
-export const deleteQualificationById = async (qualificationId) => {
-  const res = await fetch(`${API_URL}/${qualificationId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      // Authorization: `$Bearer ${token}`,
-    },
-  });
+export const deleteQualificationById = async (token, qualificationId) => {
+  try {
+    const res = await fetch(`${API_URL}/${qualificationId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  if (res.status !== 200) {
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      throw new Error(
+        `A problem occured while deleting qualification with the id: ${qualificationId}.`,
+      );
+    }
+
+    return { hasError: false, data };
+  } catch (error) {
     return {
       hasError: true,
-      message: 'A problem has occured. Please try again.',
+      message: error.message,
     };
   }
-
-  const data = await res.json();
-  return { hasError: false, data };
 };

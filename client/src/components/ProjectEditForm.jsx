@@ -45,15 +45,15 @@ const ProjectEditForm = ({ project, onSubmitUpdate, className }) => {
       />
 
       <label htmlFor='description'>Description</label>
-      <input
-        type='text'
+
+      <textarea
         id='description'
         name='description'
+        rows='8'
         placeholder='Description'
-        required
         value={description}
         onChange={({ target: { value } }) => setDescription(value)}
-      />
+      ></textarea>
 
       <label htmlFor='email'>Email</label>
       <input

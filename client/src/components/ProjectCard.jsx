@@ -17,25 +17,32 @@ const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
   };
 
   return (
-    <section>
+    <section className='grid-wrapper'>
       <h2>
         {title} ({completion ? new Date(completion).getFullYear() : 'N/A'})
       </h2>
+      <img
+        src='/space_invader.svg'
+        alt='image not found'
+        className='img-project'
+      />
       <p>{description}</p>
-      {showEditForm ? (
-        <button className='btn-red' onClick={() => setShowEditForm(false)}>
-          Cancel
+      <div className='btn-toggles'>
+        {showEditForm ? (
+          <button className='btn-red' onClick={() => setShowEditForm(false)}>
+            Cancel
+          </button>
+        ) : (
+          <button className='btn-basic' onClick={() => setShowEditForm(true)}>
+            Edit
+          </button>
+        )}
+        <button className='btn-hv-red' onClick={onDelete}>
+          Delete
         </button>
-      ) : (
-        <button className='btn-basic' onClick={() => setShowEditForm(true)}>
-          edit
-        </button>
-      )}
-      <button className='btn-hv-red' onClick={onDelete}>
-        delete
-      </button>
+      </div>
       {showEditForm ? (
-        <Card style={{ width: '50%' }}>
+        <Card className='grid-form' style={{ width: '50%' }}>
           <ProjectEditForm
             project={project}
             onSubmitUpdate={onUpdate}

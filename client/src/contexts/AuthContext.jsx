@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
+import { getItem, setItem, removeItem } from '../helpers/localStorage';
 import {
   signUpUser as signUpUserService,
   getUserDataById as getUserDataByIdService,
@@ -12,19 +13,19 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
 
   const [authUserId, setAuthUserId] = useState('');
-  const [token, setToken] = useState('');
+  const [jwtToken, setJwtToken] = useState('');
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [role, setRole] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('bearerToken');
-    const userRole = localStorage.getItem('userRole');
+  const runOnLoad = () => {
+    const userId = getItem('userId');
+    const token = getItem('bearerToken');
+    const userRole = getItem('userRole');
     if (userId && token) {
       setAuthUserId(userId);
-      setToken(token);
+      setJwtToken(token);
       setIsSignedIn(true);
     }
 
@@ -33,9 +34,12 @@ export function AuthProvider({ children }) {
       if (userRole === 'admin') setIsAdmin(true);
     }
 
-    // TODO: Are they actually authorized? Should I set this here?
     setIsAuthorized(true);
-  }, [token, authUserId, isSignedIn]);
+  };
+
+  useEffect(() => {
+    runOnLoad();
+  }, [jwtToken, isSignedIn]);
 
   const signUpUser = async (userData) => {
     try {
@@ -60,15 +64,15 @@ export function AuthProvider({ children }) {
       if (data && !data.hasError) {
         const { token, user } = data;
         if (token && user) {
-          localStorage.setItem('bearerToken', token);
-          localStorage.setItem('userId', user._id);
-          localStorage.setItem('userRole', user.role);
+          setItem('bearerToken', token);
+          setItem('userId', user._id);
+          setItem('userRole', user.role);
           if (user.role) {
             setRole(user.role);
             if (user.role === 'admin') setIsAdmin(true);
           }
           setAuthUserId(user._id);
-          setToken(token);
+          setJwtToken(token);
           setIsSignedIn(true);
           navigate('/');
         } else {
@@ -93,11 +97,12 @@ export function AuthProvider({ children }) {
   };
 
   const signOutUser = async () => {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('bearerToken');
-    localStorage.removeItem('userRole');
+    removeItem('userId');
+    removeItem('bearerToken');
+    removeItem('userRole');
+
     setAuthUserId('');
-    setToken('');
+    setJwtToken('');
     setRole('');
     setIsAdmin(false);
     setIsSignedIn(false);
@@ -106,7 +111,7 @@ export function AuthProvider({ children }) {
 
   const getCurrentUserData = async () => {
     try {
-      const data = await getUserDataByIdService(authUserId, token);
+      const data = await getUserDataByIdService(authUserId, jwtToken);
       if (data && data.hasError) navigate('/error', { state: data });
       if (data && !data.hasError) {
         return data.user;
@@ -122,10 +127,10 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext
+    <AuthContext.Provider
       value={{
         authUserId,
-        token,
+        jwtToken,
         isSignedIn,
         isAuthorized,
         signUpUser,
@@ -135,7 +140,7 @@ export function AuthProvider({ children }) {
       }}
     >
       {children}
-    </AuthContext>
+    </AuthContext.Provider>
   );
 }
 

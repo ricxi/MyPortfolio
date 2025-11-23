@@ -1,6 +1,6 @@
-const Card = ({ children, style }) => {
+const Card = ({ children, className, style }) => {
   return (
-    <div className='panel' style={style}>
+    <div className={`panel${className ? ` ${className}` : ''}`} style={style}>
       {children}
     </div>
   );

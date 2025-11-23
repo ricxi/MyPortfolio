@@ -6,14 +6,26 @@ const {
 } = require('../controllers/error.controller.js');
 
 const requireSignin = (req, res, next) => {
-  const authHeader = req.headers.authorization || null;
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    res.status(401);
+    throw new AuthenticationError('Missing authorization header');
+  }
 
-  if (!authHeader || !authHeader.startsWith('Bearer')) {
+  const testToken = authHeader.split(' ')[1];
+  console.log('Test Token **************************************');
+  console.log(authHeader.startsWith('Bearer'));
+  console.log(authHeader);
+  console.log(testToken);
+  console.log('**************************************');
+
+  if (!authHeader.startsWith('Bearer')) {
     res.status(401);
     throw new AuthenticationError('Failed to authenticate user');
   }
 
-  const [, bearerToken] = req.headers.authorization.split(' ');
+  const bearerToken = req.headers.authorization.split(' ')[1];
+  console.log(bearerToken);
   try {
     jwt.verify(bearerToken, config.jwtSecret);
     next();

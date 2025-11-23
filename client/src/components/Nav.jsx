@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
-import { addNavLinkClass } from '../helpers/helperStyles';
+import { addNavLinkClass } from '../helpers/navStyles';
 
 const Nav = () => {
   const navigate = useNavigate();

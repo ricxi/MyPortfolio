@@ -34,7 +34,7 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
         </button>
       )}
       <button className='btn-hv-red' onClick={onDelete}>
-        delete
+        Delete
       </button>
       {showEditForm ? (
         <Card style={{ width: '50%' }}>
