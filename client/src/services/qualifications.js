@@ -70,6 +70,8 @@ export const updateQualificationById = async (
     const data = await res.json();
 
     if (res.status !== 200) {
+      console.error(data.error);
+      console.log(data);
       throw new Error(
         `A problem occured while updating qualification with the id: ${qualificationId}.`,
       );
@@ -97,6 +99,7 @@ export const deleteQualificationById = async (token, qualificationId) => {
     const data = await res.json();
 
     if (res.status !== 200) {
+      console.error(data.error);
       throw new Error(
         `A problem occured while deleting qualification with the id: ${qualificationId}.`,
       );

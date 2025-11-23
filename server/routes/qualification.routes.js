@@ -1,44 +1,39 @@
 const express = require('express');
 const qualificationCtrl = require('../controllers/qualification.controller.js');
-const auth = require('../middleware/auth.middleware.js');
+const { requireSignin } = require('../middleware/auth.middleware.js');
 const { requireAdmin } = require('../middleware/admin.middleware.js');
 
 const router = express.Router();
 
 router.post(
   '/api/qualifications',
-  auth.requireSignin,
+  requireSignin,
+  requireAdmin,
   qualificationCtrl.create,
 );
 
-router.get(
-  '/api/qualifications',
-  auth.requireSignin,
-  requireAdmin,
-  qualificationCtrl.getAll,
-);
+router.get('/api/qualifications', requireSignin, qualificationCtrl.getAll);
 
-router.get(
-  '/api/qualifications/:id',
-  auth.requireSignin,
-  qualificationCtrl.getById,
-);
+router.get('/api/qualifications/:id', requireSignin, qualificationCtrl.getById);
 
 router.put(
   '/api/qualifications/:id',
-  auth.requireSignin,
+  requireSignin,
+  requireAdmin,
   qualificationCtrl.updateById,
 );
 
 router.delete(
   '/api/qualifications/:id',
-  auth.requireSignin,
+  requireSignin,
+  requireAdmin,
   qualificationCtrl.deleteById,
 );
 
 router.delete(
   '/api/qualifications',
-  auth.requireSignin,
+  requireSignin,
+  requireAdmin,
   qualificationCtrl.deleteAll,
 );
 

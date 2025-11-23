@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     runOnLoad();
-  }, [jwtToken, isSignedIn]);
+  }, [jwtToken, isSignedIn, role, isAdmin]);
 
   const signUpUser = async (userData) => {
     try {
