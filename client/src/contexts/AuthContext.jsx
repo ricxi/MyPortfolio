@@ -19,6 +19,10 @@ export function AuthProvider({ children }) {
   const [role, setRole] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
+  useEffect(() => {
+    runOnLoad();
+  }, [jwtToken, isSignedIn, role, isAdmin]);
+
   const runOnLoad = () => {
     const userId = getItem('userId');
     const token = getItem('bearerToken');
@@ -36,10 +40,6 @@ export function AuthProvider({ children }) {
 
     setIsAuthorized(true);
   };
-
-  useEffect(() => {
-    runOnLoad();
-  }, [jwtToken, isSignedIn, role, isAdmin]);
 
   const signUpUser = async (userData) => {
     try {

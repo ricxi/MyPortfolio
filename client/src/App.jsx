@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { AuthProvider } from './contexts/AuthContext';
+import AuthedRoute from './routes/AuthedRoute';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -23,13 +23,20 @@ function App() {
             <Route index element={<Home />} />
             <Route path='about' element={<About />} />
             <Route path='projects' element={<Projects />} />
-            <Route path='qualifications' element={<Qualifications />} />
+            <Route
+              path='qualifications'
+              element={
+                <AuthedRoute>
+                  <Qualifications />
+                </AuthedRoute>
+              }
+            />
+            <Route path='contact' element={<Contact />} />
             <Route path='services' element={<Services />} />
             <Route path='signup' element={<SignUp />} />
             <Route path='signin' element={<SignIn />} />
             <Route path='success' element={<Success />} />
             <Route path='error' element={<Error />} />
-            <Route path='contact' element={<Contact />} />
           </Routes>
         </main>
       </AuthProvider>
