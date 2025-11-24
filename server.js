@@ -3,8 +3,9 @@ const app = require('./server/express.js');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
+console.log(config.mongoUri);
 mongoose.connect(config.mongoUri, {}).then(() => {
-  console.log('Connected to the database!!');
+  console.log('Connected to the database!');
 });
 
 mongoose.connection.on('error', () => {
