@@ -33,12 +33,12 @@ const Nav = () => {
               <NavLink to='qualifications' className={addNavLinkClass} end>
                 Qualifications
               </NavLink>
+              <NavLink to='contact' className={addNavLinkClass} end>
+                Contact Info
+              </NavLink>
             </>
           )}
 
-          <NavLink to='contact' className={addNavLinkClass} end>
-            {isSignedIn ? 'Contact' : 'Contact Me'}
-          </NavLink>
           {isSignedIn ? (
             <button className='nav-button' onClick={handleSignOut}>
               Sign Out
