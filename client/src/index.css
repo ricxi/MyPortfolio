@@ -224,6 +224,11 @@ ul {
   text-align: center;
 }
 
+.loading {
+  padding: 30px;
+  text-align: center;
+}
+
 /* Button styles for signout button on nav bar */
 .nav-button {
   color: var(--secondary-color);

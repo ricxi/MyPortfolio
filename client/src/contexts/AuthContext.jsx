@@ -12,6 +12,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(true);
   const [authUserId, setAuthUserId] = useState('');
   const [jwtToken, setJwtToken] = useState('');
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -19,24 +20,27 @@ export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    runOnLoad();
-  }, [jwtToken, isSignedIn, role, isAdmin]);
+    const loadStorageData = () => {
+      const userId = getItem('userId');
+      const token = getItem('bearerToken');
+      const userRole = getItem('userRole');
 
-  const runOnLoad = () => {
-    const userId = getItem('userId');
-    const token = getItem('bearerToken');
-    const userRole = getItem('userRole');
-    if (userId && token) {
-      setAuthUserId(userId);
-      setJwtToken(token);
-      setIsSignedIn(true);
-    }
+      if (userId && token) {
+        setAuthUserId(userId);
+        setJwtToken(token);
+        setIsSignedIn(true);
+      }
 
-    if (userRole) {
-      setRole(userRole);
-      if (userRole === 'admin') setIsAdmin(true);
-    }
-  };
+      if (userRole) {
+        setRole(userRole);
+        if (userRole === 'admin') setIsAdmin(true);
+      }
+
+      setIsLoading(false);
+    };
+
+    loadStorageData();
+  }, [jwtToken, isSignedIn, role, isAdmin, authUserId, isLoading]);
 
   const signUpUser = async (userData) => {
     try {
@@ -126,6 +130,7 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
+        isLoading,
         authUserId,
         jwtToken,
         isSignedIn,

@@ -1,6 +1,8 @@
 const getErrorMessage = (err) => {
   let message = '';
 
+  console.log('getErrorMessage= ');
+  console.log(err);
   if (err.code) {
     switch (err.code) {
       case 11000:
@@ -25,7 +27,7 @@ const getUniqueErrorMessage = (err) => {
   try {
     let fieldName = err.message.substring(
       err.message.lastIndexOf('.$') + 2,
-      err.message.lastIndexOf('_1')
+      err.message.lastIndexOf('_1'),
     );
     output =
       fieldName.charAt(0).toUpperCase() +
@@ -34,6 +36,7 @@ const getUniqueErrorMessage = (err) => {
   } catch (ex) {
     output = 'Unique field already exists';
   }
+  console.log(output);
 
   return output;
 };

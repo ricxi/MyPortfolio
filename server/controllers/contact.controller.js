@@ -1,7 +1,6 @@
 const Contact = require('../models/contact.model.js');
 const errorHandler = require('./error.controller.js');
 
-// TODO: error message and test if contact already exists
 const create = async (req, res) => {
   const contact = new Contact(req.body);
   try {
@@ -15,6 +14,10 @@ const create = async (req, res) => {
       message: 'Contact has been created.',
     });
   } catch (err) {
+    // console.log('error.............................................');
+    // console.log(err);
+    // console.log('error.message.........................................');
+    // console.log(err.message);
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });
@@ -34,7 +37,6 @@ const getAll = async (req, res) => {
   }
 };
 
-// TODO: validate that req.params.id is not empty or not int
 const getById = async (req, res) => {
   try {
     const contact = await Contact.findById(req.params.id).select(
@@ -53,7 +55,6 @@ const getById = async (req, res) => {
   }
 };
 
-// TODO: validate that req.params.id is not empty or not int
 const updateById = async (req, res) => {
   const contact = req.body;
 
@@ -78,7 +79,6 @@ const updateById = async (req, res) => {
   }
 };
 
-// TODO: validate that req.params.id is not empty or not int
 const deleteById = async (req, res) => {
   try {
     const deletedContact = await Contact.findByIdAndDelete(
@@ -99,7 +99,6 @@ const deleteById = async (req, res) => {
   }
 };
 
-// TODO: I should find a way to validate that everything was actually deleted
 const deleteAll = async (req, res) => {
   try {
     const result = await Contact.deleteMany({});
