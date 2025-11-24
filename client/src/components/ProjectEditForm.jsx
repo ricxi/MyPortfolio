@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
+import { formatDateForInput } from '../helpers/dateFormatters';
 
 const ProjectEditForm = ({ project, onSubmitUpdate, className }) => {
   const [projectTitle, setProjectTitle] = useState('');
   const [description, setDescription] = useState('');
   const [completionDate, setCompletionDate] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   useEffect(() => {
     setProjectTitle(project.title || '');
     setDescription(project.description || '');
     setEmail(project.email || '');
+    setFirstName(project.firstName || '');
+    setLastName(project.lastName || '');
     if (project.completion) {
-      const formattedCompletion = new Date(project.completion)
-        .toISOString()
-        .split('T')[0];
-      setCompletionDate(formattedCompletion);
+      setCompletionDate(formatDateForInput(project.completion));
     }
   }, []);
 
@@ -25,6 +27,8 @@ const ProjectEditForm = ({ project, onSubmitUpdate, className }) => {
       title: projectTitle,
       description,
       email,
+      firstname: firstName,
+      lastname: lastName,
       completion: completionDate,
     };
 
@@ -64,6 +68,26 @@ const ProjectEditForm = ({ project, onSubmitUpdate, className }) => {
         required
         value={email}
         onChange={({ target: { value } }) => setEmail(value)}
+      />
+
+      <input
+        type='text'
+        id='firstName'
+        name='firstName'
+        placeholder='First Name'
+        required
+        value={firstName}
+        onChange={({ target: { value } }) => setFirstName(value)}
+      />
+
+      <input
+        type='text'
+        id='lastName'
+        name='lastName'
+        placeholder='Last Name'
+        required
+        value={lastName}
+        onChange={({ target: { value } }) => setLastName(value)}
       />
 
       <label htmlFor='completion'>Completion Date</label>

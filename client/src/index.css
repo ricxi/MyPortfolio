@@ -196,6 +196,13 @@ ul {
   border: 1px solid var(--primary-color);
 }
 
+.grid-wrapper .under-img  {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
 .grid-wrapper p {
   grid-column-start:2;
   grid-column-end: 3;

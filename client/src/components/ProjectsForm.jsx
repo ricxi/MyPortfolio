@@ -4,6 +4,8 @@ const ProjectsForm = ({ handleAdd, className }) => {
   const [projectTitle, setProjectTitle] = useState('');
   const [description, setDescription] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [completionDate, setCompletionDate] = useState('');
 
   const handleSubmit = async (e) => {
@@ -13,10 +15,19 @@ const ProjectsForm = ({ handleAdd, className }) => {
       title: projectTitle,
       description,
       email,
+      firstname: firstName,
+      lastname: lastName,
       completion: completionDate,
     };
 
     handleAdd(projectData);
+
+    setProjectTitle('');
+    setDescription('');
+    setEmail('');
+    setFirstName('');
+    setLastName('');
+    setCompletionDate('');
   };
 
   return (
@@ -50,7 +61,27 @@ const ProjectsForm = ({ handleAdd, className }) => {
         onChange={({ target: { value } }) => setEmail(value)}
       />
 
-      <label htmlFor='completion'>Completion</label>
+      <input
+        type='text'
+        id='firstName'
+        name='firstName'
+        placeholder='First Name'
+        required
+        value={firstName}
+        onChange={({ target: { value } }) => setFirstName(value)}
+      />
+
+      <input
+        type='text'
+        id='lastName'
+        name='lastName'
+        placeholder='Last Name'
+        required
+        value={lastName}
+        onChange={({ target: { value } }) => setLastName(value)}
+      />
+
+      <label htmlFor='completion'>Completion Date</label>
       <input
         type='date'
         id='completion'

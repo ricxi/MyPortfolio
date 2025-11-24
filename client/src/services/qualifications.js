@@ -1,3 +1,5 @@
+import { normalizeQualificationKeys } from '../helpers/normalize';
+
 const API_URL = '/api/qualifications';
 
 export const addQualification = async (token, qualificationData) => {
@@ -51,7 +53,8 @@ export const getAllQualifications = async (token) => {
       );
     }
 
-    return { hasError: false, data };
+    const qualifications = normalizeQualificationKeys(data);
+    return { hasError: false, data: qualifications };
   } catch (error) {
     return {
       hasError: true,
@@ -65,6 +68,7 @@ export const updateQualificationById = async (
   qualificationId,
   updatedQualification,
 ) => {
+  console.log(updatedQualification);
   try {
     const res = await fetch(`${API_URL}/${qualificationId}`, {
       method: 'PUT',

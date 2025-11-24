@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
+import { formatDateForInput } from '../helpers/dateFormatters';
 
 const QualificationEditForm = ({ qualification, onUpdate, className }) => {
   const [qualificationTitle, setQualificationTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [completionDate, setCompletionDate] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [completionDate, setCompletionDate] = useState('');
 
   useEffect(() => {
     setQualificationTitle(qualification.title || '');
     setDescription(qualification.description || '');
+    setFirstName(qualification.firstName || '');
+    setLastName(qualification.lastName || '');
     setEmail(qualification.email || '');
     if (qualification.completion) {
-      const formattedCompletion = new Date(qualification.completion)
-        .toISOString()
-        .split('T')[0];
-      setCompletionDate(formattedCompletion);
+      setCompletionDate(formatDateForInput(qualification.completion));
     }
   }, []);
 
@@ -24,6 +26,8 @@ const QualificationEditForm = ({ qualification, onUpdate, className }) => {
     const updatedQualification = {
       title: qualificationTitle,
       description,
+      firstname: firstName,
+      lastname: lastName,
       email,
       completion: completionDate,
     };
@@ -54,6 +58,26 @@ const QualificationEditForm = ({ qualification, onUpdate, className }) => {
           required
           value={description}
           onChange={({ target: { value } }) => setDescription(value)}
+        />
+
+        <input
+          type='text'
+          id='firstName'
+          name='firstName'
+          placeholder='First Name'
+          required
+          value={firstName}
+          onChange={({ target: { value } }) => setFirstName(value)}
+        />
+
+        <input
+          type='text'
+          id='lastName'
+          name='lastName'
+          placeholder='Last Name'
+          required
+          value={lastName}
+          onChange={({ target: { value } }) => setLastName(value)}
         />
 
         <label htmlFor='email'>Email</label>

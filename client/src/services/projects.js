@@ -1,3 +1,5 @@
+import { normalizeProjectKeys } from '../helpers/normalize';
+
 const API_URL = '/api/projects';
 
 export const addProject = async (token, projectData) => {
@@ -14,8 +16,11 @@ export const addProject = async (token, projectData) => {
     const data = await res.json();
 
     if (res.status !== 201 && res.status !== 200) {
-      console.error(data.error);
-      throw new Error('A problem occurred while adding your project');
+      throw new Error(
+        data.error
+          ? data.error
+          : 'A problem occurred while adding your project',
+      );
     }
 
     return { hasError: false, data };
@@ -40,11 +45,15 @@ export const getAllProjects = async (token) => {
     const data = await res.json();
 
     if (res.status !== 200) {
-      console.error(data);
-      throw new Error('A problem occurred while retreiving all projects');
+      throw new Error(
+        data.error
+          ? data.error
+          : 'A problem occurred while retreiving all projects',
+      );
     }
 
-    return { hasError: false, data };
+    const projects = normalizeProjectKeys(data);
+    return { hasError: false, data: projects };
   } catch (error) {
     return {
       hasError: true,
@@ -67,7 +76,9 @@ export const getProjectsById = async (token, userId) => {
 
     if (res.status !== 200) {
       throw new Error(
-        `A problem occurred while trying to retreive projects for user : ${userId}`,
+        data.error
+          ? data.error
+          : `A problem occurred while trying to retreive projects for user : ${userId}`,
       );
     }
 
@@ -95,7 +106,9 @@ export const updateProjectById = async (token, projectId, updatedProject) => {
 
     if (res.status !== 200) {
       throw new Error(
-        `A problem occurred while trying to update project: ${projectId}`,
+        data.error
+          ? data.error
+          : `A problem occurred while trying to update project: ${projectId}`,
       );
     }
 
@@ -122,7 +135,9 @@ export const deleteProjectById = async (token, projectId) => {
 
     if (res.status !== 200) {
       throw new Error(
-        `A problem occurred while deleting project: ${projectId}`,
+        data.error
+          ? data.error
+          : `A problem occurred while deleting project: ${projectId}`,
       );
     }
 

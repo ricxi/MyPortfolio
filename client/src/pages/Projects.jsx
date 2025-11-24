@@ -80,7 +80,7 @@ const Projects = () => {
           />
         ))}
 
-      <section className='grid-wrapper'>
+      {/* <section className='grid-wrapper'>
         <h2>Space Invaders Game</h2>
         <img
           src='/space_invader.svg'
@@ -96,7 +96,7 @@ const Projects = () => {
           collision system, and review code to maintain standards. The current
           build is still in development.
         </p>
-      </section>
+      </section> */}
       {isSignedIn && isAdmin && (
         <section>
           <Card>

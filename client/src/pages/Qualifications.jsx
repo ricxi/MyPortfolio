@@ -62,7 +62,7 @@ const Qualifications = () => {
         <WarningModal message={warningMessage} setMessage={setWarningMessage} />
       )}
       <h1>Education &amp; Qualifications</h1>
-      <section>
+      {/* <section>
         <h2>University of Ottawa (2017)</h2>
         <ul>
           <li>Honours Bachelor of Science</li>
@@ -75,7 +75,7 @@ const Qualifications = () => {
           <li>Ontario College Advanced Diploma</li>
           <li>Game Programming (Fast Track)</li>
         </ul>
-      </section>
+      </section> */}
 
       {isSignedIn &&
         qualifications &&

@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Card from './Card';
 import ProjectEditForm from './ProjectEditForm';
 import { useAuth } from '../contexts/AuthContext';
+import { formatDate } from '../helpers/dateFormatters';
 
 const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
-  const { _id, title, completion, description } = project;
+  const { _id, title, firstName, lastName, email, completion, description } =
+    project;
 
   const { isAdmin } = useAuth();
 
@@ -30,6 +32,12 @@ const ProjectCard = ({ project, handleUpdate, handleDelete }) => {
         className='img-project'
       />
       <p>{description}</p>
+      <div className='under-img'>
+        {completion ? `Completed on ${formatDate(completion)}` : 'Created'}
+        {firstName ? ` by ${firstName}` : ''}
+        {lastName ? ` ${lastName}` : ''}
+        {email ? ` (${email})` : ''}.{' '}
+      </div>
       {isAdmin && (
         <>
           <div className='btn-toggles'>

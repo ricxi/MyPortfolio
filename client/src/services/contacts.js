@@ -17,7 +17,6 @@ export const addContact = async (token, contactData) => {
 
     if (res.status !== 201) {
       console.error(data.error);
-      // TODO: HANDLE THIS ERROR to let the user know it's a duplicate, or go to the backend and take care of it.
       throw new Error(
         data.error
           ? data.error

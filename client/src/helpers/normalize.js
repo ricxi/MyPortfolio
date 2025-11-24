@@ -9,3 +9,25 @@ export const normalizeContactKeys = (contacts) =>
       contactNumber: phone,
     };
   });
+
+export const normalizeProjectKeys = (projects) =>
+  projects.map((project) => {
+    const { firstname, lastname, ...rest } = project;
+
+    return {
+      ...rest,
+      firstName: firstname,
+      lastName: lastname,
+    };
+  });
+
+export const normalizeQualificationKeys = (qualifications) =>
+  qualifications.map((qualification) => {
+    const { firstname, lastname, ...rest } = qualification;
+
+    return {
+      ...rest,
+      firstName: firstname,
+      lastName: lastname,
+    };
+  });

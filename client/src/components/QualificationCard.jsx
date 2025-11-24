@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Card from './Card';
 import QualificationEditForm from '../components/QualificationEditForm';
 import { useAuth } from '../contexts/AuthContext';
+import { formatDate } from '../helpers/dateFormatters';
 
 const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
-  const { _id, title, completion, description } = qualification;
+  const { _id, title, description, firstName, lastName, email, completion } =
+    qualification;
 
   const { isAdmin } = useAuth();
 
@@ -54,6 +56,12 @@ const QualificationCard = ({ qualification, handleUpdate, handleDelete }) => {
           )}
         </>
       )}
+      <div>
+        {completion ? `Completed on ${formatDate(completion)}` : 'Created'}
+        {firstName ? ` by ${firstName}` : ''}
+        {lastName ? ` ${lastName}` : ''}
+        {email ? ` (${email})` : ''}.{' '}
+      </div>
     </section>
   );
 };
