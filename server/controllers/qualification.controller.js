@@ -35,7 +35,6 @@ const getAll = async (req, res) => {
   }
 };
 
-// TODO: validate that req.params.id is not empty or not int
 const getById = async (req, res) => {
   try {
     const qualification = await Qualification.findById(req.params.id).select(
@@ -54,7 +53,6 @@ const getById = async (req, res) => {
   }
 };
 
-// TODO: validate that req.params.id is not empty or not int
 const updateById = async (req, res) => {
   const qualification = req.body;
   try {
@@ -77,7 +75,6 @@ const updateById = async (req, res) => {
   }
 };
 
-// TODO: validate that req.params.id is not empty or not int
 const deleteById = async (req, res) => {
   try {
     const deletedQualification = await Qualification.findByIdAndDelete(
@@ -102,7 +99,6 @@ const deleteAll = async (req, res) => {
   try {
     const result = await Qualification.deleteMany({});
     if (!result) return res.json({ error: 'problem deleting qualifications' });
-    // TODO: Check if an error actually gives an empty result
 
     return res.json({ message: 'successfully deleted all qualifications' });
   } catch (err) {
