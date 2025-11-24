@@ -88,6 +88,13 @@ nav .container {
   margin: 2px;
 }
 
+.admin-logo {
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  padding: 3px 8px;
+  margin: 2px;
+}
+
 /* Styles for Card component */
 .panel {
   border: 1px solid #ACACAC;

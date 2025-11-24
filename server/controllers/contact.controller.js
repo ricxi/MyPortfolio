@@ -14,10 +14,6 @@ const create = async (req, res) => {
       message: 'Contact has been created.',
     });
   } catch (err) {
-    // console.log('error.............................................');
-    // console.log(err);
-    // console.log('error.message.........................................');
-    // console.log(err.message);
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });

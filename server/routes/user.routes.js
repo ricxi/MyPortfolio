@@ -22,6 +22,7 @@ router.delete(
   '/api/users/:id',
   auth.requireSignin,
   auth.hasAuthorization,
+  requireAdmin,
   userCtrl.removeById,
 );
 

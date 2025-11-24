@@ -4,17 +4,26 @@ import { addNavLinkClass } from '../helpers/navStyles';
 
 const Nav = () => {
   const navigate = useNavigate();
-  const { isSignedIn, signOutUser } = useAuth();
+  const { isSignedIn, signOutUser, isAdmin, isLoading } = useAuth();
 
   const handleSignOut = () => {
     signOutUser();
     navigate('/');
   };
 
+  if (isLoading)
+    <nav>
+      <div className='container'>Loading...</div>
+    </nav>;
+
   return (
     <nav>
       <div className='container'>
-        <div className='logo'>RX</div>
+        {isAdmin ? (
+          <div className='admin-logo'>admin</div>
+        ) : (
+          <div className='logo'>RX</div>
+        )}
         <div className='nav-items'>
           <NavLink to='/' className={addNavLinkClass} end>
             Home
