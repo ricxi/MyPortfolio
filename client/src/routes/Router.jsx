@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
-import AuthedRoute from './AuthedRoute.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 import App from '../App';
 import Home from '../pages/Home';
@@ -23,25 +23,25 @@ export const router = createBrowserRouter([
       {
         path: 'projects',
         element: (
-          <AuthedRoute>
+          <ProtectedRoute>
             <Projects />
-          </AuthedRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: 'qualifications',
         element: (
-          <AuthedRoute>
+          <ProtectedRoute>
             <Qualifications />
-          </AuthedRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: 'contact',
         element: (
-          <AuthedRoute>
+          <ProtectedRoute>
             <Contact />
-          </AuthedRoute>
+          </ProtectedRoute>
         ),
       },
       { path: 'services', element: <Services /> },

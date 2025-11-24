@@ -1,9 +1,8 @@
 import { Navigate, useLocation } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
 
-const AuthedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }) => {
   const location = useLocation();
-
   const { isSignedIn } = useAuth();
 
   return isSignedIn ? (
@@ -13,4 +12,4 @@ const AuthedRoute = ({ children }) => {
   );
 };
 
-export default AuthedRoute;
+export default ProtectedRoute;

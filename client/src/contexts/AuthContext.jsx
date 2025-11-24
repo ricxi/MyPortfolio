@@ -15,7 +15,6 @@ export function AuthProvider({ children }) {
   const [authUserId, setAuthUserId] = useState('');
   const [jwtToken, setJwtToken] = useState('');
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
   const [role, setRole] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -37,8 +36,6 @@ export function AuthProvider({ children }) {
       setRole(userRole);
       if (userRole === 'admin') setIsAdmin(true);
     }
-
-    setIsAuthorized(true);
   };
 
   const signUpUser = async (userData) => {
@@ -132,7 +129,6 @@ export function AuthProvider({ children }) {
         authUserId,
         jwtToken,
         isSignedIn,
-        isAuthorized,
         isAdmin,
         signUpUser,
         signInUser,

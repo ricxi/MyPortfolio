@@ -14,7 +14,11 @@ export const addQualification = async (token, qualificationData) => {
     const data = await res.json();
 
     if (res.status !== 201 && res.status !== 200) {
-      throw new Error('A problem occurred while adding a qualification');
+      throw new Error(
+        data.error
+          ? data.error
+          : 'A problem occurred while adding a qualification',
+      );
     }
 
     return { hasError: false, data };
@@ -40,7 +44,11 @@ export const getAllQualifications = async (token) => {
 
     if (res.status !== 200) {
       console.error(data);
-      throw new Error('A problem occurred while retreiving all qualifications');
+      throw new Error(
+        data.error
+          ? data.error
+          : 'A problem occurred while retreiving all qualifications',
+      );
     }
 
     return { hasError: false, data };
@@ -71,9 +79,10 @@ export const updateQualificationById = async (
 
     if (res.status !== 200) {
       console.error(data.error);
-      console.log(data);
       throw new Error(
-        `A problem occured while updating qualification with the id: ${qualificationId}.`,
+        data.error
+          ? data.error
+          : `A problem occured while updating qualification with the id: ${qualificationId}.`,
       );
     }
 
@@ -101,7 +110,9 @@ export const deleteQualificationById = async (token, qualificationId) => {
     if (res.status !== 200) {
       console.error(data.error);
       throw new Error(
-        `A problem occured while deleting qualification with the id: ${qualificationId}.`,
+        data.error
+          ? data.error
+          : `A problem occured while deleting qualification with the id: ${qualificationId}.`,
       );
     }
 

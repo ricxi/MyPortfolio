@@ -17,7 +17,12 @@ export const addContact = async (token, contactData) => {
 
     if (res.status !== 201) {
       console.error(data.error);
-      throw new Error('A problem has occured. Please try again.');
+      // TODO: HANDLE THIS ERROR to let the user know it's a duplicate, or go to the backend and take care of it.
+      throw new Error(
+        data.error
+          ? data.error
+          : 'A problem occurred adding the contact. Please try again.',
+      );
     }
 
     return {
@@ -43,7 +48,11 @@ export const getAllContacts = async (token) => {
 
     if (res.status !== 200) {
       console.error(data);
-      throw new Error('A problem occurred while retreiving all contacts');
+      throw new Error(
+        data.error
+          ? data.error
+          : 'A problem occurred while retreiving all contacts',
+      );
     }
 
     const contacts = normalizeContactKeys(data);
@@ -72,7 +81,9 @@ export const updateContactById = async (token, contactId, updatedContact) => {
     if (res.status !== 200) {
       console.error(data);
       throw new Error(
-        `A problem occured while updating contact with the id: ${contactId}.`,
+        data.error
+          ? data.error
+          : `A problem occured while updating contact with the id: ${contactId}.`,
       );
     }
 
@@ -100,7 +111,9 @@ export const deleteContactById = async (token, contactId) => {
     if (res.status !== 200) {
       console.error(data);
       throw new Error(
-        `A problem occured while deleting contact with the id: ${contactId}.`,
+        data.error
+          ? data.error
+          : `A problem occured while deleting contact with the id: ${contactId}.`,
       );
     }
 
