@@ -9,7 +9,7 @@ const AuthedRoute = ({ children }) => {
   return isSignedIn ? (
     <>{children}</>
   ) : (
-    <Navigate to='/signin' state={{ from: location }} replace />
+    <Navigate to='/signin' state={{ from: location }} replace={true} />
   );
 };
 
