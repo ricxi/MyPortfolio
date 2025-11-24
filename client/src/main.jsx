@@ -1,9 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider } from 'react-router';
-// import { createBrowserRouter, RouterProvider } from 'react-router';
+import { RouterProvider } from 'react-router/dom';
 import './index.css';
 import { router } from './routes/Router';
+
 // import AuthedRoute from './routes/AuthedRoute';
 // import App from './App';
 // import Home from './pages/Home';
