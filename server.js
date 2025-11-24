@@ -1,6 +1,16 @@
 const config = require('./config/config.js');
+const express = require('express');
+const path = require('path');
 const app = require('./server/express.js');
 const mongoose = require('mongoose');
+
+const clientDistPath = path.join(__dirname, 'client', 'dist');
+
+app.use(express.static(clientDistPath));
+
+app.get('/{*splat}', (req, res) => {
+  res.sendFile(path.join(clientDistPath, 'index.html'));
+});
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongoUri, {}).then(() => {
@@ -9,10 +19,6 @@ mongoose.connect(config.mongoUri, {}).then(() => {
 
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${config.mongoUri}`);
-});
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to My Portfolio application.' });
 });
 
 app.listen(config.port, (err) => {

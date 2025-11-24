@@ -15,10 +15,11 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "build": "vite build",
     "test": "NODE_ENV=test jest",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build": "cd client && npm install && npm run build",
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^2.2.0",
