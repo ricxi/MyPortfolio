@@ -80,23 +80,6 @@ const Projects = () => {
           />
         ))}
 
-      {/* <section className='grid-wrapper'>
-        <h2>Space Invaders Game</h2>
-        <img
-          src='/space_invader.svg'
-          alt='image not found'
-          className='img-project'
-        />
-        <p>
-          In my game programming class, I am working with a team to build a 2D
-          Space Invaders&ndash;style shooter game, designing and programming
-          core gameplay systems—player movement, enemy waves, collision
-          detection, sprite animation, and escalating difficulty—while keeping
-          the code clean and modular. I am responsible for controls and the
-          collision system, and review code to maintain standards. The current
-          build is still in development.
-        </p>
-      </section> */}
       {isSignedIn && isAdmin && (
         <section>
           <Card>
