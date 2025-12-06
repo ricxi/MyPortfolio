@@ -18,9 +18,9 @@ export const createMockLocalStorage = () => {
   };
 };
 
-export const renderWithMockAuth = (ui, { providerProps, ...renderOptions }) => {
+export const renderWithMockAuth = (ui, { authProps, ...renderOptions }) => {
   return render(
-    <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>,
+    <AuthContext.Provider {...authProps}>{ui}</AuthContext.Provider>,
     renderOptions,
   );
 };

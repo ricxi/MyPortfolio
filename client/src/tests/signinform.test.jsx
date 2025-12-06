@@ -1,6 +1,10 @@
 import { screen, fireEvent, waitFor } from '@testing-library/react';
-import { renderWithAuth, renderWithMockAuth } from './test-helpers';
-import SignUpForm from '../components/SignUpForm';
+import {
+  createMockLocalStorage,
+  renderWithAuth,
+  renderWithMockAuth,
+} from './test-helpers';
+import SignInForm from '../components/SignInForm';
 
 const mockNavigate = jest.fn();
 jest.mock('react-router', () => ({
@@ -11,6 +15,11 @@ describe('Sign Up', () => {
   beforeEach(() => {
     global.fetch = jest.fn();
     mockNavigate.mockClear();
+
+    Object.defineProperty(window, 'localStorage', {
+      value: createMockLocalStorage(),
+      writable: true,
+    });
   });
 
   afterEach(() => {
@@ -18,19 +27,15 @@ describe('Sign Up', () => {
   });
 
   test('fill out each field', () => {
-    const signUpUser = jest.fn();
+    const signInUser = jest.fn();
 
-    renderWithMockAuth(<SignUpForm />, {
-      authProps: { value: signUpUser },
+    renderWithMockAuth(<SignInForm />, {
+      authProps: { value: signInUser },
     });
 
-    const fullNameInput = screen.getByLabelText(/fullName/);
     const emailInput = screen.getByLabelText(/email/);
     const passwordInput = screen.getByLabelText(/password/);
 
-    fireEvent.change(fullNameInput, {
-      target: { name: 'fullName', value: 'Ellen Ripley' },
-    });
     fireEvent.change(emailInput, {
       target: { name: 'email', value: 'ellenripley@weyland.yutani' },
     });
@@ -38,7 +43,6 @@ describe('Sign Up', () => {
       target: { name: 'password', value: 'pa$$word' },
     });
 
-    expect(fullNameInput).toHaveValue('Ellen Ripley');
     expect(emailInput).toHaveValue('ellenripley@weyland.yutani');
     expect(passwordInput).toHaveValue('pa$$word');
   });
@@ -46,13 +50,12 @@ describe('Sign Up', () => {
   test('submit the form and check the request body', async () => {
     global.fetch.mockResolvedValue({
       ok: true,
-      status: 201,
+      status: 200,
       json: async () => ({}),
     });
 
-    renderWithAuth(<SignUpForm />);
+    renderWithAuth(<SignInForm />);
 
-    const fullNameInput = screen.getByLabelText(/fullName/);
     const emailInput = screen.getByLabelText(/email/);
     const passwordInput = screen.getByLabelText(/password/);
 
@@ -60,9 +63,6 @@ describe('Sign Up', () => {
       .getAllByRole('button')
       .find((button) => button.type === 'submit');
 
-    fireEvent.change(fullNameInput, {
-      target: { name: 'fullName', value: 'Ellen Ripley' },
-    });
     fireEvent.change(emailInput, {
       target: { name: 'email', value: 'ellenripley@weyland.yutani' },
     });
@@ -76,7 +76,7 @@ describe('Sign Up', () => {
 
     const [url, options] = global.fetch.mock.calls[0];
 
-    expect(url).toBe('/api/users');
+    expect(url).toBe('/api/auth/signin');
     expect(options).toEqual(
       expect.objectContaining({
         method: 'POST',
@@ -87,7 +87,6 @@ describe('Sign Up', () => {
     );
 
     expect(JSON.parse(options.body)).toEqual({
-      name: 'Ellen Ripley',
       email: 'ellenripley@weyland.yutani',
       password: 'pa$$word',
     });
@@ -104,12 +103,11 @@ describe('Sign Up', () => {
         },
       }),
       ok: true,
-      status: 201,
+      status: 200,
     });
 
-    renderWithAuth(<SignUpForm />);
+    renderWithAuth(<SignInForm />);
 
-    const fullNameInput = screen.getByLabelText(/fullName/);
     const emailInput = screen.getByLabelText(/email/);
     const passwordInput = screen.getByLabelText(/password/);
 
@@ -117,9 +115,6 @@ describe('Sign Up', () => {
       .getAllByRole('button')
       .find((button) => button.type === 'submit');
 
-    fireEvent.change(fullNameInput, {
-      target: { name: 'fullName', value: 'Ellen Ripley' },
-    });
     fireEvent.change(emailInput, {
       target: { name: 'email', value: 'ellenripley@weyland.yutani' },
     });
@@ -131,13 +126,13 @@ describe('Sign Up', () => {
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        '/api/users',
+        '/api/auth/signin',
         expect.objectContaining({
           method: 'POST',
         }),
       );
     });
 
-    expect(mockNavigate).toHaveBeenCalledWith('/signin');
+    expect(mockNavigate).toHaveBeenCalledWith('/');
   });
 });

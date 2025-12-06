@@ -26,6 +26,7 @@ const SignInForm = ({ className }) => {
       <input
         type='email'
         id='email'
+        aria-label='email'
         name='email'
         placeholder='Email'
         required
@@ -36,6 +37,7 @@ const SignInForm = ({ className }) => {
       <input
         type='password'
         id='password'
+        aria-label='password'
         name='password'
         placeholder='Password'
         required
