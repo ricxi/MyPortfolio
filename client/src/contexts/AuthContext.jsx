@@ -7,7 +7,7 @@ import {
 } from '../services/user';
 import { signInUser as signInUserService } from '../services/auth';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const navigate = useNavigate();

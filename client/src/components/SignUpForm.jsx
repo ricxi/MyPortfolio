@@ -29,6 +29,7 @@ const SignUpForm = ({ className }) => {
       <input
         type='text'
         id='fullName'
+        aria-label='fullName'
         name='fullName'
         placeholder='Full Name'
         required
@@ -39,6 +40,7 @@ const SignUpForm = ({ className }) => {
       <input
         type='email'
         id='email'
+        aria-label='email'
         name='email'
         placeholder='Email'
         required
@@ -49,6 +51,7 @@ const SignUpForm = ({ className }) => {
       <input
         type='password'
         id='password'
+        aria-label='password'
         name='password'
         placeholder='Password'
         required
