@@ -49,7 +49,11 @@ const Nav = () => {
           )}
 
           {isSignedIn ? (
-            <button className='nav-button' onClick={handleSignOut}>
+            <button
+              className='nav-button'
+              name='signout'
+              onClick={handleSignOut}
+            >
               Sign Out
             </button>
           ) : (
