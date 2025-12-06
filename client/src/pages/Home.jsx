@@ -3,12 +3,10 @@ import { NavLink } from 'react-router';
 const Home = ({ userInfo, hasSubmitted }) => {
   return (
     <>
-      {/* {hasSubmitted ? (
-        <p className='panel modal-msg'>{addMessageToHomePage(userInfo)} </p>
-      ) : (
-        ''
-      )} */}
       <h1>Home</h1>
+      <article className='btm-border'>
+        This paragraph demonstrates that I have successfully performed CI/CD
+      </article>
       <article className='btm-border'>
         Welcome! This is my little corner of the internet for low-stress
         building and learning out loud. Browse a project, read a quick note,
