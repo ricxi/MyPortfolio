@@ -7,4 +7,8 @@ module.exports = defineConfig({
     },
     baseUrl: 'http://localhost:5173',
   },
+  component: {
+    specPattern: 'cypress/integration/**/*.spec.js',
+    baseUrl: 'http://localhost:5173',
+  },
 });

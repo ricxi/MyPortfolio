@@ -1,0 +1,190 @@
+{
+    "title": "Sign Up New User",
+    "selectorAttribute": "user-sign-up",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1002,
+            "height": 922,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:5173/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:5173/",
+                    "title": "client"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "nav a:nth-of-type(4)"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/nav/div/div[2]/a[4]"
+                ],
+                [
+                    "pierce/nav a:nth-of-type(4)"
+                ],
+                [
+                    "aria/Sign Up"
+                ],
+                [
+                    "text/Sign Up"
+                ]
+            ],
+            "offsetY": 30,
+            "offsetX": 41.40625
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "#fullName"
+                ],
+                [
+                    "xpath///*[@id=\"fullName\"]"
+                ],
+                [
+                    "pierce/#fullName"
+                ],
+                [
+                    "aria/fullName"
+                ]
+            ],
+            "offsetY": 17.21875,
+            "offsetX": 39
+        },
+        {
+            "type": "change",
+            "value": "C",
+            "selectors": [
+                [
+                    "#fullName"
+                ],
+                [
+                    "xpath///*[@id=\"fullName\"]"
+                ],
+                [
+                    "pierce/#fullName"
+                ],
+                [
+                    "aria/fullName"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyUp",
+            "key": "c",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "Cypress User",
+            "selectors": [
+                [
+                    "#fullName"
+                ],
+                [
+                    "xpath///*[@id=\"fullName\"]"
+                ],
+                [
+                    "pierce/#fullName"
+                ],
+                [
+                    "aria/fullName"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "Tab"
+        },
+        {
+            "type": "keyUp",
+            "key": "Tab",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "user@cypress.ca",
+            "selectors": [
+                [
+                    "#email"
+                ],
+                [
+                    "xpath///*[@id=\"email\"]"
+                ],
+                [
+                    "pierce/#email"
+                ],
+                [
+                    "aria/email"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "Tab"
+        },
+        {
+            "type": "keyUp",
+            "key": "Tab",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "password",
+            "selectors": [
+                [
+                    "#password"
+                ],
+                [
+                    "xpath///*[@id=\"password\"]"
+                ],
+                [
+                    "pierce/#password"
+                ],
+                [
+                    "aria/password"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "button"
+                ],
+                [
+                    "xpath///*[@id=\"root\"]/main/div/div/form/button"
+                ],
+                [
+                    "pierce/button"
+                ],
+                [
+                    "aria/Sign Up[role=\"button\"]"
+                ]
+            ],
+            "offsetY": 13.21875,
+            "offsetX": 69.8125
+        }
+    ]
+}
