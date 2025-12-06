@@ -20,7 +20,7 @@
     "preview": "vite preview",
     "build": "cd client && npm install && npm run build",
     "start": "node server.js",
-    "dev:local":"mongodb://root:password@127.0.0.1:37017/Portfolio?authSource=admin nodemon server/server.js"
+    "dev:local":"MONGODB_URI=mongodb://root:password@127.0.0.1:37017/Portfolio?authSource=admin nodemon server/server.js"
   },
   "dependencies": {
     "body-parser": "^2.2.0",
